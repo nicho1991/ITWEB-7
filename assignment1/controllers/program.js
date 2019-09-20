@@ -9,7 +9,7 @@ module.exports.submitNewProgram  = function (req, res) {
 
     const myProgram = new program();
     
-    myProgram.program = req.body.program;
+    myProgram.Program = req.body.program;
 
 
     myProgram.save(function (err) {
