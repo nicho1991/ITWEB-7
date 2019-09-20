@@ -7,5 +7,7 @@ const CtrlUsers = require('../controllers/login');
 /* GET home page. */
 router.get('/', CtrlUsers.index);
 
+router.post('/submit' , CtrlUsers.submit);
+
 
 module.exports = router;
