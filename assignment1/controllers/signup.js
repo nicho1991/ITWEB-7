@@ -4,5 +4,5 @@ module.exports.index  = function (req, res) {
 
 module.exports.submit  = function (req, res) {
     console.log('submitted signup')
-    res.send('submitted');
+    res.redirect('/');
 }
