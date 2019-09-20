@@ -5,11 +5,12 @@ html
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
     block navbar
-      a(href="signup") signup
-      a(href="login") Login
-      a(href="/") Home
-
+      a(class='navspace' href='/') Home
+      a(class='navspace' href='signup') Signup
+      a(class='navspace' href='login') Login
+      a(class='navspace' href='workout') Workout Program
+      
     block content
 
     block footer
-      h6 created by group 7
+      h6 Created by group 7
