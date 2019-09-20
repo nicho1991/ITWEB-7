@@ -1,0 +1,26 @@
+
+extends ../layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+
+  // register form
+  form(method='POST' action='workout/submit')
+    div.form-group
+      label(for='exercise') Exercise:
+      input#exercise.form-control(type='text', placeholder='exercise' name='exercise')
+    div.form-group
+      label(for='description') Description:
+      input#description.form-control(type='text', placeholder='description' name='description')
+    div.form-group
+      label(for='set') Set:
+      input#set.form-control(type='number', placeholder='set' name='set')
+    div.form-group
+      label(for='repsOrTime') Reps/time:
+      input#repsOrTime.form-control(type='text' name='repsOrTime')
+
+
+<!-- 
+
+-->

@@ -6,3 +6,5 @@ module.exports.submit  = function (req, res) {
     console.log('submitted signup')
     res.redirect('/');
 }
+
+

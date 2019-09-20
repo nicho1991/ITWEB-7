@@ -1,5 +1,5 @@
 var mongoose = require( 'mongoose' );
-require('./workout')
+require('./program')
 
 var dbURI = 'mongodb://localhost/FitnessAPP';
 mongoose.connect(dbURI, { useUnifiedTopology: true, useNewUrlParser: true });

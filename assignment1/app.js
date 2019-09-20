@@ -9,7 +9,7 @@ require('./models/db');
 var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/login');
 var signupRouter = require('./routes/signup');
-var workoutRouter = require('./routes/workout');
+var programRouter = require('./routes/program');
 var app = express();
 
 // view engine setup
@@ -25,7 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/login' , loginRouter);
 app.use('/signup' , signupRouter);
-app.use('/workout', workoutRouter);
+app.use('/program', programRouter);
 
 
 // catch 404 and forward to error handler
