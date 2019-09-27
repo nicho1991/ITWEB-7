@@ -4,6 +4,39 @@ block content
   h1= title
   p Welcome to #{title}
 
+  div.table-wrapper
+    table.desc
+      tr
+        th Exercise
+      each program in programs
+        each item in program.Exercise
+          tr
+            td(height='50px')=item
+
+    table.desc
+      tr
+        th Description
+      each program in programs
+        each item in program.Description
+          tr
+            td(height='50px')=item
+
+    table.desc
+      tr
+        th Set
+      each program in programs
+        each item in program.Set
+          tr
+            td(height='50px')=item
+
+    table.desc
+      tr
+        th Reps
+      each program in programs
+        each item in program.Reps
+          tr
+            td(height='50px')=item
+
   // List of programs
   h3 List of workout programs:
   ul.list-group

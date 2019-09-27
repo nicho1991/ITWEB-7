@@ -10,3 +10,25 @@ a {
 .navspace {
   margin-right: 10px;
 }
+
+.table-wrapper {
+  display: flex;
+}
+
+.desc {
+  width: 15em;
+  border-collapse: collapse;
+}
+
+.desc th {
+  background-color: whitesmoke;
+  padding: 1em;
+  text-align: left;
+  border: 1px solid black;
+  padding: 1em;
+}
+
+.desc td {
+  border: 1px solid black;
+  padding: 1em;
+}
