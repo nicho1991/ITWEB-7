@@ -6,9 +6,10 @@ block content
 
   // List of programs
   h3 List of workout programs:
-  ul
+  ul.list-group
   each item in programs
-    li= item.Program
+    li.list-group-item
+      a(href="/program/workout/" + item._id)= item.Program 
 
   // Add new workout program form
   form(method='POST' action='program/submitNewProgram')

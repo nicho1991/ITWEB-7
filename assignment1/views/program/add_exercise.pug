@@ -4,11 +4,12 @@ block content
   h1= title
   p Welcome to #{title}
 
+
   // register form
-  form(method='POST' action='workout/submit')
+  form(method='POST' action='/program/submitAddExercise')
     div.form-group
-      label(for='programName') Program Name:
-      input#programName.form-control(type='text', placeholder='Program Name' name='programName')
+      label(for='_id') id:
+      input#_id.form.control(type='text', name='id' value=id)
     div.form-group
       label(for='exercise') Exercise:
       input#exercise.form-control(type='text', placeholder='Exercise' name='exercise')
@@ -21,3 +22,4 @@ block content
     div.form-group
       label(for='repsOrTime') Reps/time:
       input#repsOrTime.form-control(type='text' name='repsOrTime')
+    button.btn.btn-primary(type='submit') Add New Exercise
