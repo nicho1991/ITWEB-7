@@ -8,7 +8,7 @@ block content
   h3 List of workout programs:
   ul
   each item in programs
-    li= item
+    li= item.Program
 
   // Add new workout program form
   form(method='POST' action='program/submitNewProgram')

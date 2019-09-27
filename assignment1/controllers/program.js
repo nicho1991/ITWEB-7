@@ -1,21 +1,23 @@
 const mongoose = require('mongoose'); 
 
-module.exports.index  = function (req, res) {
+module.exports.index  = async function (req, res) {
+    const programsget = await programsArray();
+
     res.render('program/index' , { 
         title: 'Workout Programs Page',
-        programs: programsArray()
+        programs: programsget
     });
 }
 
 //const programsArray = ["test"];
 
-programsArray = function() {
-    const program = mongoose.model('program');
-    const myProgram = new program();
+programsArray = async function() {
+    console.log('1')
 
-    myProgram.find({},(err, docs) => {
-        return docs.program;
-    });
+    const program = mongoose.model('program');
+    const docs = await program.find();
+    console.log(docs)
+    return docs;
 }
 
 module.exports.submitNewProgram  = function (req, res) {
