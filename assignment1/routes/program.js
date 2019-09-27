@@ -1,11 +1,14 @@
 var express = require('express');
 var router = express.Router();
-const CtrlProgram = require('../controllers/program');
+const ctrlProgram = require('../controllers/program');
 
+// GET home page
+router.get('/', ctrlProgram.index);
 
+// GET listAllPrograms
+// router.get('/listAllPrograms', ctrlProgram.listAllPrograms);
 
-/* GET home page. */
-router.get('/', CtrlProgram.index);
+// POST submitNewProgram
+router.post('/submitNewProgram', ctrlProgram.submitNewProgram);
 
-router.post('/submitNewProgram' , CtrlProgram.submitNewProgram);
 module.exports = router;

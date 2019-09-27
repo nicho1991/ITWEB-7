@@ -4,10 +4,16 @@ block content
   h1= title
   p Welcome to #{title}
 
-  // register form
+  // List of programs
+  h3 List of workout programs:
+  ul
+  each item in programs
+    li= item
+
+  // Add new workout program form
   form(method='POST' action='program/submitNewProgram')
     div.form-group
-      label(for='program') Program:
-      input#program.form-control(type='text', placeholder='program' name='program')
-    button.btn.btn-primary(type='submit') Submit
+      label(for='program') Program name: 
+      input#program.form-control(type='text', placeholder=' Enter program name' name='program')
+    button.btn.btn-primary(type='submit') Add New Program
 

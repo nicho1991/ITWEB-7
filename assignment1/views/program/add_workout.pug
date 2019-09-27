@@ -1,4 +1,3 @@
-
 extends ../layout
 
 block content
@@ -8,19 +7,17 @@ block content
   // register form
   form(method='POST' action='workout/submit')
     div.form-group
+      label(for='programName') Program Name:
+      input#programName.form-control(type='text', placeholder='Program Name' name='programName')
+    div.form-group
       label(for='exercise') Exercise:
-      input#exercise.form-control(type='text', placeholder='exercise' name='exercise')
+      input#exercise.form-control(type='text', placeholder='Exercise' name='exercise')
     div.form-group
       label(for='description') Description:
-      input#description.form-control(type='text', placeholder='description' name='description')
+      input#description.form-control(type='text', placeholder='Description' name='description')
     div.form-group
       label(for='set') Set:
-      input#set.form-control(type='number', placeholder='set' name='set')
+      input#set.form-control(type='number', placeholder='Set' name='set')
     div.form-group
       label(for='repsOrTime') Reps/time:
       input#repsOrTime.form-control(type='text' name='repsOrTime')
-
-
-<!-- 
-
--->
