@@ -17,6 +17,7 @@ programsArray = async function() {
     const program = mongoose.model('program');
     const docs = await program.find();
 
+    console.log(docs)
     return docs;
 }
 

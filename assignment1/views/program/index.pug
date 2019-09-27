@@ -10,6 +10,22 @@ block content
   each item in programs
     li.list-group-item
       a(href="/program/workout/" + item._id)= item.Program 
+      ul exercise
+        each ex in item.Exercise
+          li= ex
+
+      ul description
+        each de in item.Description
+          li= de
+      
+      ul set
+        each set in item.Set
+          li= set
+
+      ul reps
+        each rep in item.Reps
+          li= rep
+
 
   // Add new workout program form
   form(method='POST' action='program/submitNewProgram')
