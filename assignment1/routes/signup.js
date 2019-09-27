@@ -8,4 +8,7 @@ const CtrlUsers = require('../controllers/signup');
 router.get('/', CtrlUsers.index);
 router.post('/submit' , CtrlUsers.submit)
 
+
+
+
 module.exports = router;
