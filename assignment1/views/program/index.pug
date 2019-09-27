@@ -3,67 +3,48 @@ extends ../layout
 block content
   h1= title
   p Welcome to #{title}
-
-  div.table-wrapper
-    table.desc
-      tr
-        th Exercise
-      each program in programs
-        each item in program.Exercise
-          tr
-            td(height='50px')=item
-
-    table.desc
-      tr
-        th Description
-      each program in programs
-        each item in program.Description
-          tr
-            td(height='50px')=item
-
-    table.desc
-      tr
-        th Set
-      each program in programs
-        each item in program.Set
-          tr
-            td(height='50px')=item
-
-    table.desc
-      tr
-        th Reps
-      each program in programs
-        each item in program.Reps
-          tr
-            td(height='50px')=item
-
-  // List of programs
-  h3 List of workout programs:
-  ul.list-group
-  each item in programs
-    li.list-group-item
-      a(href="/program/workout/" + item._id)= item.Program 
-      ul exercise
-        each ex in item.Exercise
-          li= ex
-
-      ul description
-        each de in item.Description
-          li= de
-      
-      ul set
-        each set in item.Set
-          li= set
-
-      ul reps
-        each rep in item.Reps
-          li= rep
-
-
   // Add new workout program form
   form(method='POST' action='program/submitNewProgram')
     div.form-group
       label(for='program') Program name: 
       input#program.form-control(type='text', placeholder=' Enter program name' name='program')
     button.btn.btn-primary(type='submit') Add New Program
+
+
+  ul.list-group
+    each program in programs
+      li.list-group-item
+        a(href="/program/workout/" + program._id)= program.Program 
+        div.table-wrapper
+          table.desc
+            tr
+              th Exercise
+            each item in program.Exercise
+                tr
+                  td(height='50px')=item
+
+          table.desc
+            tr
+              th Description
+            each item in program.Description
+                tr
+                  td(height='50px')=item
+
+          table.desc
+            tr
+              th Set
+            each item in program.Set
+                tr
+                  td(height='50px')=item
+
+          table.desc
+            tr
+              th Reps
+            each item in program.Reps
+                tr
+                  td(height='50px')=item
+
+
+
+
 
