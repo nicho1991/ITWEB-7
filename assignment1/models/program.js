@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 const WorkoutSchema = new Schema({
     Id: Schema.ObjectId,
     Program: String,
+    userID: String,
     Exercise: [String],
     Description: [String],
     Set: [Number],

@@ -3,7 +3,6 @@ module.exports.index  = function (req, res) {
 }
 
 module.exports.submit  = function (req, res) {
-    console.log(req.body.email);
 
     res.redirect('/')
 }

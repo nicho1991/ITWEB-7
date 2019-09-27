@@ -9,9 +9,10 @@ var passport = require('passport')
   passport.use(new LocalStrategy({
     usernameField: 'email'
   },
-    function(username, password, done) {
+    async function(username, password, done) {
       console.log('user creds ' , username,password);
-      User.findOne({ email: username }, function(err, user){
+      
+      await User.findOne({ email: username }, function(err, user){
           console.log('user was ' , user);
           if (err) { return done(err); }
               if (!user) {
@@ -52,6 +53,12 @@ router.get('/', CtrlUsers.index);
 
 //router.post('/submit',passport.authenticate('local'), CtrlUsers.submit);
 
-router.post('/submit', (req, res, next) => passport.authenticate('local', { successRedirect: '/program', failureRedirect: '/login', })(req, res, next));
+router.post('/', (req, res, next) => passport.authenticate('local', { successRedirect: '/program', failureRedirect: '/login', })(req, res, next));
+
+router.post('/logout',
+  function(req, res) {
+    req.logout(),
+    res.redirect('/');
+  })
 
 module.exports = router;

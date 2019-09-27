@@ -1,7 +1,10 @@
 const mongoose = require('mongoose'); 
 
+
+
 module.exports.index  = async function (req, res) {
-    const programsget = await programsArray();
+  
+    const programsget = await programsArray(req);
 
     res.render('program/index' , { 
         title: 'Workout Programs Page',
@@ -11,14 +14,18 @@ module.exports.index  = async function (req, res) {
 
 //const programsArray = ["test"];
 
-programsArray = async function() {
+programsArray = async function(req) {
+    if (req._passport.session) {
+        var id = req._passport.session.user;
+        const program = mongoose.model('program');
+        const docs = await program.find({userID: id});
+        return docs;
+    } else {
+        return [];
+    }
 
 
-    const program = mongoose.model('program');
-    const docs = await program.find();
 
-    console.log(docs)
-    return docs;
 }
 
 getprogram = async function (id) {
@@ -37,35 +44,42 @@ module.exports.getWorkout = async function (req , res) {
 }
 
 module.exports.addExercise = async function(req , res) {
-    console.log('hi')
-    const program = mongoose.model('program');
-    const myProgram = new program();
-    const docget = await getprogram(req.body.id);
-    console.log(req.body)
-
-    docget.Exercise.push(req.body.exercise);
-    docget.Description.push(req.body.description);
-    docget.Set.push (req.body.set);
-    docget.Reps.push(req.body.repsOrTime);
+    if (req._passport.session) {
+        const program = mongoose.model('program');
+        const docget = await getprogram(req.body.id);
     
+        docget.Exercise.push(req.body.exercise);
+        docget.Description.push(req.body.description);
+        docget.Set.push (req.body.set);
+        docget.Reps.push(req.body.repsOrTime);
+        
+    
+        docget.save(function (err) {
+            if (err) return handleError(err);
+            // saved!
+        });
+    
+    } else {
+        res.redirect('/')
+    }
 
-    docget.save(function (err) {
-        if (err) return handleError(err);
-        // saved!
-    });
 
-    res.redirect('/')
 }
 
 module.exports.submitNewProgram  = function (req, res) {
-    const program = mongoose.model('program');
-    const myProgram = new program();
-    myProgram.Program = req.body.program;
+    if (req._passport.session) {
+        const program = mongoose.model('program');
+        const myProgram = new program();
+        myProgram.Program = req.body.program;
+        myProgram.userID = req._passport.session.user;
+        myProgram.save(function (err) {
+            if (err) return handleError(err);
+            // saved!
+        });
+        res.redirect('./program');
 
-    myProgram.save(function (err) {
-        if (err) return handleError(err);
-        // saved!
-    });
+    } else {
+        res.redirect('/login')
+    }
 
-    res.redirect('/')
 }
