@@ -1,5 +1,6 @@
 const mongoose = require('mongoose'); 
 const Schema = mongoose.Schema;
+
 //Define a schema
 const WorkoutSchema = new Schema({
     Id: Schema.ObjectId,
@@ -10,6 +11,6 @@ const WorkoutSchema = new Schema({
     Reps: [String],
 });
 
-const program = mongoose.model('program', WorkoutSchema)
+const program = mongoose.model('program', WorkoutSchema);
 
 module.exports = program;

@@ -1,11 +1,17 @@
 var express = require('express');
 var router = express.Router();
-const CtrlProgram = require('../controllers/program');
+const ctrlProgram = require('../controllers/program');
 
 
+// GET home page
+router.get('/', ctrlProgram.index);
 
-/* GET home page. */
-router.get('/', CtrlProgram.index);
+// GET listAllPrograms
+// router.get('/listAllPrograms', ctrlProgram.listAllPrograms);
 
-router.post('/submitNewProgram' , CtrlProgram.submitNewProgram);
+// POST submitNewProgram
+router.post('/submitNewProgram', ctrlProgram.submitNewProgram);
+router.post('/submitAddExercise', ctrlProgram.addExercise)
+router.get('/workout/:id', ctrlProgram.getWorkout);
+
 module.exports = router;
