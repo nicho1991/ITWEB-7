@@ -7,7 +7,9 @@ module.exports = (app) => {
         user.signUp(req, res);
     });
 
-    app.post('/login', (req, res) => user.login(req, res));
+    app.post('/login', (req, res) => {
+        user.login(req, res)
+    });
 
     //#region Programs
     app.post('/program' , (req, res) => program.new(req, res));

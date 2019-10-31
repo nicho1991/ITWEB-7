@@ -1,43 +1,8 @@
 var User = require('../models/user.js');
+var passport = require('passport');
 
 
-module.exports.signUp  = function (req, res) {
-
-    console.log(req.body)
-    if(!req.body) {
-       
-        return res.status(400).send({
-            message: "user content can not be empty"
-        });
-    }
-
-    var name = req.body.name;
-    var email = req.body.email;
-    var password = req.body.password;
-    //check fejl her
-    if(name.length < 1){console.log('Fejl i navn')
-        return res.status(400).send('fejl i navn');}
-
-    else{
-        var newUser = new User({
-            name: name,
-            email: email,
-            password: password,
-
-        });
-        User.createUser(newUser, function(err, user){
-            if(err) {
-                return res.status(500).send(err);
-                throw err
-            }
-        });
-        res.status(200).send('ok');
-    }
-}
-
-
-
-var passport = require('passport') , LocalStrategy = require('passport-local').Strategy;
+const LocalStrategy = require('passport-local').Strategy;
 
   passport.use(new LocalStrategy({
     usernameField: 'email'
@@ -81,6 +46,43 @@ var passport = require('passport') , LocalStrategy = require('passport-local').S
     });
   });
 
+module.exports.signUp  = function (req, res) {
+
+    console.log(req.body)
+    if(!req.body) {
+       
+        return res.status(400).send({
+            message: "user content can not be empty"
+        });
+    }
+
+    var name = req.body.name;
+    var email = req.body.email;
+    var password = req.body.password;
+    //check fejl her
+    if(name.length < 1){console.log('Fejl i navn')
+        return res.status(400).send('fejl i navn');}
+
+    else{
+        var newUser = new User({
+            name: name,
+            email: email,
+            password: password,
+
+        });
+        User.createUser(newUser, function(err, user){
+            if(err) {
+                return res.status(500).send(err);
+                throw err
+            }
+        });
+        res.status(200).send('ok');
+    }
+}
+
+
+
+
 // login
 module.exports.login  = function (req, res) {
     if(!req.body) {
@@ -102,6 +104,8 @@ module.exports.login  = function (req, res) {
         return res.status(200).send(user);
     });
  }
+
+
 
 
 
