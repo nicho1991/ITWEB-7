@@ -4,9 +4,12 @@ const programModel = require('../models/program');
 module.exports.create = function( req, res) {
     if (!req.body.Program) {
         return res.status(500).send("no program defined");
+    }else if (!req.body.userID) {
+        return res.status(500).send("Need user ID");
     }
     var program = new programModel({
-        Program: req.body.Program
+        Program: req.body.Program,
+        userID: req.body.userID
     });
     program.save(function(err,product) {
 
@@ -43,7 +46,23 @@ module.exports.getSingle = function (req , res) {
         }
     })
 }
-module.exports.getAll = function (req , res) {}
+module.exports.getAll = async function (req , res) {
+  
+    if (!req.body.userID) {
+        return res.status(500).send("Need User ID");
+    }
+    programModel.find({userID: req.body.userID}, function(err, doc) {
+        if (err) {
+            console.log(error)
+            res.status(500).send(error);
+        }
+        res.status(200).send(doc);
+
+    })
+
+} 
+
+
 module.exports.update = function (req , res) {}
 
 
