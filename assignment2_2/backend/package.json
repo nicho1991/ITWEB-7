@@ -2,7 +2,7 @@
   "name": "fitness-web-app-backend",
   "version": "1.0.0",
   "description": "Backend Server for Fitness Web App (ITWEB - Assignment 2)",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
