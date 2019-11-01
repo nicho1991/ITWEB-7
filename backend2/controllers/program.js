@@ -1,4 +1,17 @@
 const mongoose = require('mongoose'); 
+
+module.exports.create = function( req, res) {
+    console.log(req.body.length)
+    if (req.body.length) {
+        return res.status(400).send('content cannot be empty');
+    }
+}
+module.exports.delete = function (req , res) {}
+module.exports.getSingle = function (req , res) {}
+module.exports.getAll = function (req , res) {}
+module.exports.update = function (req , res) {}
+
+
 /* 
 programsArray = async function(req) {
     if (req._passport.session) {
@@ -65,8 +78,3 @@ module.exports.submitNewProgram  = function (req, res) {
     }
 
 } */
-module.exports.create = function( req, res) {}
-module.exports.delete = function (req , res) {}
-module.exports.getSingle = function (req , res) {}
-module.exports.getAll = function (req , res) {}
-module.exports.update = function (req , res) {}

@@ -9,11 +9,11 @@ const program = require('../controllers/program');
 // router.post('/submitNewProgram', ctrlProgram.submitNewProgram);
 // router.post('/submitAddExercise', ctrlProgram.addExercise)
 // router.get('/workout/:id', ctrlProgram.getWorkout);
-router.post('/program', program.create);
-router.delete('/program/:programId',program.delete);
-router.get('/program/:programId' , program.getSingle); 
-router.get('/program', program.getAll);
-router.put('/program' ,program.update);
+router.post('/', program.create);
+router.delete('/:programId',program.delete);
+router.get('/:programId' , program.getSingle); 
+router.get('/', program.getAll);
+router.put('/' ,program.update);
 
 
 module.exports = router;
