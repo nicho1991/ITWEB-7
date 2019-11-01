@@ -5,10 +5,10 @@ const programModel = require('../models/program')
 module.exports.create = async function( req, res) {
     {
     var exercise = new exerciseModel({
-        exercise: req.body.exercise,
-        description: req.body.description,
-        exerset: req.body.set,
-        rep: req.body.reps
+        Exercise: req.body.exercise,
+        Description: req.body.description,
+        Set: req.body.set,
+        Reps: req.body.reps
         
     })
     exercise.save(function (err, product) {
@@ -16,14 +16,24 @@ module.exports.create = async function( req, res) {
             return res.status(500).send(err);
         }
         programModel.findById(req.body.programId, function(err,program){
+            console.log(1)
             if(err){
+                console.log(2)
                 return res.status(500).send(err);
             }
+            console.log(program.exercises)
             if(!program.exercises){
-                program.exercises = [];
+                console.log(3)
+                program.exercises = new [];
             }
+            console.log(4)
             program.exercises.push(product._id)
-            program.save()
+            program.save(function(err, resp) {
+                if (err) {
+                    return res.status(500).send(err);
+                }
+                return res.status(200).send(resp);
+            })
         })
     });
 }
