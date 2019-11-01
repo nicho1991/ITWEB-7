@@ -10,7 +10,7 @@ const program = require('../controllers/program');
 // router.post('/submitAddExercise', ctrlProgram.addExercise)
 // router.get('/workout/:id', ctrlProgram.getWorkout);
 router.post('/', program.create);
-router.delete('/:programId',program.delete);
+router.delete('/',program.delete);
 router.get('/:programId' , program.getSingle); 
 router.get('/', program.getAll);
 router.put('/' ,program.update);

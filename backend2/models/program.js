@@ -10,5 +10,4 @@ const ProgramSchema = new Schema({
 });
 
 const program = mongoose.model('program', ProgramSchema);
-
 module.exports = program;

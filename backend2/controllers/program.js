@@ -1,12 +1,37 @@
 const mongoose = require('mongoose'); 
+const programModel = require('../models/program');
 
 module.exports.create = function( req, res) {
-    console.log(req.body.length)
-    if (req.body.length) {
-        return res.status(400).send('content cannot be empty');
+    if (!req.body.Program) {
+        return res.status(400).send("no program defined");
     }
+    var program = new programModel({
+        Program: req.body.Program
+    });
+    program.save(function(err,product) {
+
+        if (err) {
+            return res.status(500).send(err);
+        } else {
+            return res.status(200).send(product);
+        }
+    })
 }
-module.exports.delete = function (req , res) {}
+module.exports.delete = function (req , res) {
+    if (!req.body._id) {
+        return res.status(400).send("Need ID to delete");
+    }
+
+    var ID = req.body._id;
+    programModel.findByIdAndDelete({_id: ID}, function(err, product) {
+        if (err) {
+            return res.status(500).send(err);
+        } else {
+            return res.status(200).send('OK');
+        }
+    })
+
+}
 module.exports.getSingle = function (req , res) {}
 module.exports.getAll = function (req , res) {}
 module.exports.update = function (req , res) {}
