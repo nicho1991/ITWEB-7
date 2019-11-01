@@ -1,6 +1,4 @@
 var User = require('../models/user.js');
-const CtrlUsers = require('../controllers/login');
-
 var passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy;
 
@@ -33,8 +31,7 @@ var passport = require('passport')
         }
         
         )
-/*         console.log(password, User.password, user.password);
-         */
+
     }
   ));
   passport.serializeUser(function(user, done) {
@@ -46,14 +43,6 @@ var passport = require('passport')
       done(err, user);
     });
   });
-
-/* 
-  module.exports.login = (req, res, next) => {
-    passport.authenticate('local', {
-        successRedirect: '/',
-        failureRedirect: '/error'
-    })(req, res, next)
-  } */
 
   module.exports.login = (req, res, next) => {
       passport.authenticate('local', function(err, user, info) {
