@@ -45,6 +45,7 @@ app.use('/', indexRouter);
 app.use('/login' , loginRouter);
 app.use('/signup' , signupRouter);
 app.use('/program', programRouter);
+app.use('/exercise', programRouter);
 
 
 // catch 404 and forward to error handler
