@@ -11,8 +11,8 @@ const program = require('../controllers/program');
 // router.get('/workout/:id', ctrlProgram.getWorkout);
 router.post('/', program.create);
 router.delete('/',program.delete);
-router.get('/:programId' , program.getSingle); 
-router.get('/', program.getAll);
+router.get('/single' , program.getSingle); 
+router.get('/all', program.getAll);
 router.put('/' ,program.update);
 
 

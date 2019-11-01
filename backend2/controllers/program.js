@@ -3,7 +3,7 @@ const programModel = require('../models/program');
 
 module.exports.create = function( req, res) {
     if (!req.body.Program) {
-        return res.status(400).send("no program defined");
+        return res.status(500).send("no program defined");
     }
     var program = new programModel({
         Program: req.body.Program
@@ -19,11 +19,9 @@ module.exports.create = function( req, res) {
 }
 module.exports.delete = function (req , res) {
     if (!req.body._id) {
-        return res.status(400).send("Need ID to delete");
+        return res.status(500).send("Need ID to delete");
     }
-
-    var ID = req.body._id;
-    programModel.findByIdAndDelete({_id: ID}, function(err, product) {
+    programModel.findByIdAndDelete({_id: req.body._id}, function(err, product) {
         if (err) {
             return res.status(500).send(err);
         } else {
@@ -32,7 +30,19 @@ module.exports.delete = function (req , res) {
     })
 
 }
-module.exports.getSingle = function (req , res) {}
+module.exports.getSingle = function (req , res) {
+    if (!req.body._id) {
+        return res.status(500).send("Need ID to get");
+    }
+
+    programModel.findById({_id: req.body._id}, function(err, product) {
+        if (err) {
+            return res.status(500).send(err);
+        } else {
+            return res.status(200).send(product);
+        }
+    })
+}
 module.exports.getAll = function (req , res) {}
 module.exports.update = function (req , res) {}
 
