@@ -4,6 +4,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+/* Angular 8 http service */
+import { HttpClientModule } from '@angular/common/http';
+
+/* Angular 8 CRUD services */
+import { ApiService } from './shared/api.service';
+
 /* Custom Components */
 import { AddWorkoutProgramComponent } from './components/add-workout-program/add-workout-program.component';
 import { EditWorkoutProgramComponent } from './components/edit-workout-program/edit-workout-program.component';
@@ -25,9 +31,10 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    AngularMaterialModule
+    AngularMaterialModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [ApiService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
