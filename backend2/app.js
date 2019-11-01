@@ -20,6 +20,7 @@ require('./models/db');
 var loginRouter = require('./routes/login');
 var signupRouter = require('./routes/signup');
 var programRouter = require('./routes/program');
+var exerciseRouter = require('./routes/exercise');
 var app = express();
 
 // view engine setup
@@ -42,7 +43,8 @@ app.use(passport.session());
 
 app.use('/login' , loginRouter);
 app.use('/signup' , signupRouter);
-app.use('/programs', programRouter);
+app.use('/program', programRouter);
+app.use('/exercise', exerciseRouter);
 
 
 // catch 404 and forward to error handler

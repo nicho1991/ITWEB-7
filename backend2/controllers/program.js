@@ -1,9 +1,5 @@
 const mongoose = require('mongoose'); 
-
-
-
-//const programsArray = ["test"];
-
+/* 
 programsArray = async function(req) {
     if (req._passport.session) {
         var id = req._passport.session.user;
@@ -13,11 +9,7 @@ programsArray = async function(req) {
     } else {
         return [];
     }
-
-
-
 }
-
 getprogram = async function (id) {
     const program = mongoose.model('program');
     const doc = await program.find({_id: id})
@@ -72,4 +64,9 @@ module.exports.submitNewProgram  = function (req, res) {
         res.redirect('/login')
     }
 
-}
+} */
+module.exports.create = function( req, res) {}
+module.exports.delete = function (req , res) {}
+module.exports.getSingle = function (req , res) {}
+module.exports.getAll = function (req , res) {}
+module.exports.update = function (req , res) {}
