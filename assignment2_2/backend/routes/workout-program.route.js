@@ -3,7 +3,7 @@ const app = express();	// Don't think this is needed here? At least 'app' is app
 const workoutProgramRoute = express.Router();
 
 // Workout program model
-let WorkoutProgram = require('../model/workout-program');
+const WorkoutProgram = require('../model/workout-program');
 
 // Add workout program
 workoutProgramRoute.route('/add-workout-program').post((req, res, next) => {
