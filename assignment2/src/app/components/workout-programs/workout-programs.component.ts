@@ -18,11 +18,11 @@ export class WorkoutProgramsComponent implements OnInit {
   }
 
   public add() {
-    console.log(this.programName);
+
     const program = new Program();
     program.programName = this.programName;
     this.apiService.addProgram(program).subscribe(res => {
-      console.log(res);
+
     })
   }
 

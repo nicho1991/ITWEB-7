@@ -10,10 +10,10 @@ var passport = require('passport')
     usernameField: 'email'
   },
     async function(username, password, done) {
-      console.log('user creds ' , username,password);
+   
       
       await User.findOne({ email: username }, function(err, user){
-          console.log('user was ' , user);
+
           if (err) { return done(err); }
               if (!user) {
               return done(null, false, {
