@@ -38,6 +38,7 @@ module.exports.delete = function (req , res) {
 
 }
 module.exports.getSingle = function (req , res) {
+    console.log('yo')
     if (!req.query.id) {
         return res.status(500).send('No ID in params, failed.');
     }
