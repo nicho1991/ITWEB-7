@@ -47,6 +47,7 @@ module.exports.getSingle = function (req , res) {
     })
 }
 module.exports.getAll = async function (req , res) {
+    console.log(req.headers)
   
     if (!req.body.userID) {
         return res.status(500).send("Need User ID");

@@ -1,8 +1,9 @@
-var express = require('express');
-var router = express.Router();
-var User = require('../models/user.js');
-const CtrlUsers = require('../controllers/login');
+const passportJWT = require("passport-jwt");
+const JWTStrategy   = passportJWT.Strategy;
+const ExtractJWT = passportJWT.ExtractJwt;
 
+var User = require('./models/user');
+const jwt = require('jsonwebtoken');
 var passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy;
 
@@ -10,10 +11,8 @@ var passport = require('passport')
     usernameField: 'email'
   },
     async function(username, password, done) {
-   
       
       await User.findOne({ email: username }, function(err, user){
-
           if (err) { return done(err); }
               if (!user) {
               return done(null, false, {
@@ -21,7 +20,6 @@ var passport = require('passport')
               });}  
 
               User.comparePassword(password, user.password, function(err, isMatch){
-                console.log(password, User.password);
                   if(err) throw err;
                   if(isMatch){
                       return done(null, user);
@@ -34,8 +32,7 @@ var passport = require('passport')
         }
         
         )
-/*         console.log(password, User.password, user.password);
-         */
+
     }
   ));
   passport.serializeUser(function(user, done) {
@@ -48,17 +45,21 @@ var passport = require('passport')
     });
   });
 
-/* GET home page. */
-router.get('/', CtrlUsers.index);
 
-//router.post('/submit',passport.authenticate('local'), CtrlUsers.submit);
 
-router.post('/', (req, res, next) => passport.authenticate('local', { successRedirect: '/program', failureRedirect: '/login', })(req, res, next));
-
-router.post('/logout',
-  function(req, res) {
-    req.logout(),
-    res.redirect('/');
-  })
-
-module.exports = router;
+passport.use(new JWTStrategy({
+        jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
+        secretOrKey   : 'your_jwt_secret'
+    },
+    function (jwtPayload, cb) {
+        console.log(jwtPayload)
+        //find the user in db if needed. This functionality may be omitted if you store everything you'll need in JWT payload.
+        return User.findById(jwtPayload._id)
+            .then(user => {
+                return cb(null, user);
+            })
+            .catch(err => {
+                return cb(err);
+            });
+    }
+));

@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const program = require('../controllers/program');
 
+
 // GET listAllPrograms
 // router.get('/listAllPrograms', ctrlProgram.listAllPrograms);
 
@@ -9,7 +10,7 @@ const program = require('../controllers/program');
 // router.post('/submitNewProgram', ctrlProgram.submitNewProgram);
 // router.post('/submitAddExercise', ctrlProgram.addExercise)
 // router.get('/workout/:id', ctrlProgram.getWorkout);
-router.post('/', program.create);
+router.post('/', program.create );
 router.delete('/',program.delete);
 router.get('/single' , program.getSingle); 
 router.get('/all', program.getAll);

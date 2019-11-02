@@ -15,6 +15,8 @@ var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/');
 var db = mongoose.connection;
 
+require('./passport');
+
 require('./models/db');
 
 var loginRouter = require('./routes/login');
@@ -41,10 +43,13 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+
+
+
 app.use('/login' , loginRouter);
 app.use('/signup' , signupRouter);
-app.use('/program', programRouter);
-app.use('/exercise', exerciseRouter);
+app.use('/program', passport.authenticate('jwt', {session: false}),  programRouter);
+app.use('/exercise', passport.authenticate('jwt', {session: false}), exerciseRouter);
 
 
 
