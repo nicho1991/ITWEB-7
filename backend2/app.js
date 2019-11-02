@@ -49,7 +49,7 @@ app.use(passport.session());
 app.use('/login' , loginRouter);
 app.use('/signup' , signupRouter);
 app.use('/program', passport.authenticate('jwt', {session: false}),  programRouter);
-app.use('/exercise', exerciseRouter);
+app.use('/exercise', passport.authenticate('jwt', {session: false}), exerciseRouter);
 
 
 
