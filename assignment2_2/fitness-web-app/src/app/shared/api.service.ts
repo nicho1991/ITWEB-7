@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { WorkoutProgram } from './workout-programs';
+import { WorkoutProgram } from './workout-program';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';

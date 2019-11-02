@@ -51,7 +51,7 @@ export class AddWorkoutProgramComponent implements OnInit {
 
   /* Submit */
   submitWorkoutProgramForm() {
-    console.log(this.workoutProgramForm.status);
+    // console.log(this.workoutProgramForm.status);
     if (this.workoutProgramForm.valid) {
       this.workoutProgramApi.AddWorkoutProgram(this.workoutProgramForm.value).subscribe(res => {
         this.ngZone.run(() => this.router.navigateByUrl('/workout-programs-list'));
