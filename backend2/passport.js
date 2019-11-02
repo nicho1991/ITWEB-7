@@ -45,7 +45,10 @@ var passport = require('passport')
     });
   });
 
+module.exports.getUser = function(req) {
+  return ExtractJWT.fromAuthHeaderAsBearerToken();
 
+}
 
 passport.use(new JWTStrategy({
         jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
