@@ -4,29 +4,54 @@ const programModel = require('../models/program')
 
 module.exports.create = async function( req, res) {
     {
-    var exercise = new exerciseModel({
+        if (!req.body.exercise | !req.query.id) {
+            return res.status(500).send('input error');
+        }
+        var exercise = new exerciseModel(req.body.exercise);
+        
+        var err = exercise.validateSync();
+        if (err) {
+            return res.status(500).send(err);
+        }
+        programModel.findById(req.query.id , function(err , program) {
+            if (err) {
+                return res.status(500).send(err);
+            }
+            program.Exercises.push(exercise._id);
+            program.save(function(err ,prod) {
+                if (err) {
+                    return res.status(500).send(err);
+                }
+                exercise.save(function(err2 , prod2) {
+                    if (err) {
+                        return res.status(500).send(err);
+                    }
+                    return res.send('ok')
+                });
+            });
+  
+
+   
+        })
+
+   /*  var exercise = new exerciseModel({
         Exercise: req.body.exercise,
         Description: req.body.description,
         Set: req.body.set,
         Reps: req.body.reps
         
-    })
+    }) 
     exercise.save(function (err, product) {
         if(err){
             return res.status(500).send(err);
         }
-        programModel.findById(req.body.programId, function(err,program){
-            console.log(1)
+        programModel.findById(req.query.id, function(err,program){
             if(err){
-                console.log(2)
                 return res.status(500).send(err);
             }
-            console.log(program.exercises)
             if(!program.exercises){
-                console.log(3)
                 program.exercises = new [];
             }
-            console.log(4)
             program.exercises.push(product._id)
             program.save(function(err, resp) {
                 if (err) {
@@ -35,7 +60,7 @@ module.exports.create = async function( req, res) {
                 return res.status(200).send(resp);
             })
         })
-    });
+    }); */
 }
 
 

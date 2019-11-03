@@ -7,10 +7,8 @@ module.exports.create = function( req, res) {
     if (!req.body.Program) {
         return res.status(500).send("no program defined");
     }
-    var program = new programModel({
-        Program: req.body.Program,
-        userID: req.body.userID
-    });
+    var program = new programModel(req.body.Program);
+    program.UserID = req.user._id;
     program.save(function(err,product) {
 
         if (err) {
@@ -53,7 +51,7 @@ module.exports.getSingle = function (req , res) {
 }
 module.exports.getAll = async function (req , res) {
 
-    programModel.find({userID: req.user._id}, function(err, doc) {
+    programModel.find({UserID: req.user._id}, function(err, doc) {
         if (err) {
             console.log(error)
             res.status(500).send(error);
