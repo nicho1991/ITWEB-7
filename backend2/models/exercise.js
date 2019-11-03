@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 //Define a schema
 const ExerciseSchema = new Schema({
     ExerciseId: Schema.ObjectId,
+    UserID: String,
     Exercise: String,
     Description: String,
     Set: Number,

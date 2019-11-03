@@ -1,14 +1,13 @@
- const exerciseModel = require('../models/exercise');
+const exerciseModel = require('../models/exercise');
 const programModel = require('../models/program')
 
 
-module.exports.create = async function( req, res) {
-    {
+module.exports.create = function( req, res) {
         if (!req.body.exercise | !req.query.id) {
             return res.status(500).send('input error');
         }
         var exercise = new exerciseModel(req.body.exercise);
-        
+        exercise.UserID = req.user._id
         var err = exercise.validateSync();
         if (err) {
             return res.status(500).send(err);
@@ -16,6 +15,9 @@ module.exports.create = async function( req, res) {
         programModel.findById(req.query.id , function(err , program) {
             if (err) {
                 return res.status(500).send(err);
+            }
+            if (!program) {
+                return res.status(500).send('couldnt find program')
             }
             program.Exercises.push(exercise._id);
             program.save(function(err ,prod) {
@@ -33,53 +35,61 @@ module.exports.create = async function( req, res) {
 
    
         })
+}
 
-   /*  var exercise = new exerciseModel({
-        Exercise: req.body.exercise,
-        Description: req.body.description,
-        Set: req.body.set,
-        Reps: req.body.reps
-        
-    }) 
-    exercise.save(function (err, product) {
-        if(err){
+module.exports.delete = function (req , res) {
+    if (!req.query.id) {
+        return res.status(500).send('No ID in params, failed.');
+    }
+
+    exerciseModel.findByIdAndDelete({_id: req.query.id}, function(err, product) {
+        if (err) {
             return res.status(500).send(err);
+        } else {
+            if (product) {
+                return res.status(200).send(product);
+            } return res.status(200).send('no matching program to delete')
+
         }
-        programModel.findById(req.query.id, function(err,program){
-            if(err){
-                return res.status(500).send(err);
-            }
-            if(!program.exercises){
-                program.exercises = new [];
-            }
-            program.exercises.push(product._id)
-            program.save(function(err, resp) {
-                if (err) {
-                    return res.status(500).send(err);
-                }
-                return res.status(200).send(resp);
-            })
-        })
-    }); */
+    })
+
+}
+module.exports.getSingle = function (req , res) {
+    if (!req.query.id) {
+        return res.status(500).send('No ID in params, failed.');
+    }
+
+    exerciseModel.findById({_id: req.query.id}, function(err, product) {
+        if (err) {
+            return res.status(500).send(err);
+        } else {
+            return res.status(200).send(product);
+        }
+    })
 }
 
+module.exports.getAll = async function (req , res) {
 
+    exerciseModel.find({UserID: req.user._id}, function(err, doc) {
+        if (err) {
+            console.log(error)
+            res.status(500).send(error);
+        }
+        res.status(200).send(doc);
 
-module.exports.delete = function (req , res) {}
-module.exports.getSingle = async function (req , res) {
-    if (req._passport.session) {
-        const docget = await getxercise(req.body.programId);
-        docget.Exercise.push(req.body.exercise);
-        docget.Description.push(req.body.description);
-        docget.Set.push(req.body.set);
-        docget.Reps.push(req.body.reps);
-        docget.save(function (err) {
-            if (err) return handleError(err);
-            // saved!
-        });
+    })
+
+} 
+module.exports.update = function (req , res) {
+    if (!req.body.Exercise) {
+        return res.status(500).send("no exercise defined");
+    }
     
-    } 
+    exerciseModel.updateOne({_id: req.body.Exercise._id}, req.body.Exercise, function(err,raw) {
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            res.status(200).send(raw);
+        }
+    });
 }
-}
-module.exports.getAll = function (req , res) {}
-module.exports.update = function (req , res) {}
