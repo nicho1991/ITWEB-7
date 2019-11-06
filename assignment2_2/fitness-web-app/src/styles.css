@@ -2,16 +2,23 @@
 
 html,
 body {
-  height: 100%;
-}
-
-body {
+  font-family: Roboto, Arial, sans-serif;
   margin: 0;
-  font-family: 'Roboto', sans-serif;
+  height: 100%;
 }
 
 .header {
   justify-content: space-between;
+}
+
+.mat-header-cell:last-of-type,
+.mat-cell:last-of-type {
+  padding-right: 24px;
+  justify-content: flex-end;
+}
+
+.mat-header-cell:last-of-type{
+  padding-right: 124px;
 }
 
 .user-profile {
@@ -35,7 +42,6 @@ body {
 
 .user-profile {
   margin-left: 15px;
-  cursor: pointer;
 }
 
 .hamburger {
@@ -44,7 +50,7 @@ body {
 
 .mat-sidenav,
 .mat-sidenav-content {
-  padding: 15px;
+  padding: 10px;
 }
 
 .mat-list-item.active {
@@ -73,7 +79,6 @@ mat-sidenav mat-icon {
 
 .hamburger {
   margin-top: 5px;
-  cursor: pointer;
 }
 
 .mat-radio-button,
@@ -130,7 +135,6 @@ table {
 .multiple-items .tooltip-info {
   right: 0;
   top: 7px;
-  cursor: pointer;
   color: #a1a7c7;
   position: absolute;
   font-size: 20px;
@@ -148,6 +152,16 @@ body .push-right {
 
 .button-wrapper {
   margin: 20px 0 0 0;
+}
+
+.mat-flat-button {
+  vertical-align: top !important;
+  margin-right: 10px !important;
+}
+
+.mat-column-workoutProgramName {
+  padding-left: 10px !important;
+  padding-right: 10px !important;
 }
 
 @media (max-width:1024px) {

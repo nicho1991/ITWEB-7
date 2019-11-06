@@ -1,5 +1,10 @@
 {
 	"files.exclude": {
 		"**/*.spec.*": true
-	}
+	},
+	"cSpell.ignoreWords": [
+		"downlevel",
+		"esnext",
+		"iteration"
+	]
 }
