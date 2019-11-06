@@ -5,8 +5,8 @@ const Schema = mongoose.Schema;
 const ProgramSchema = new Schema({
     ProgramId: Schema.ObjectId,
     Program: String,
-    userID: String,
-    exercises: [String],
+    UserID: String,
+    Exercises: [String],
 });
 
 const program = mongoose.model('program', ProgramSchema);
