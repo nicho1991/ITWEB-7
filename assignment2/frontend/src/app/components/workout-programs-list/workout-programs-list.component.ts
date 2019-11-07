@@ -39,9 +39,12 @@ export class WorkoutProgramsListComponent {
 
   // EXERCISES (for selected workout program)
   getExercises(selectedElement: any) {
+
     this.expandedElement = this.expandedElement === selectedElement.exercises ? null : selectedElement.exercises;
     this.ExerciseData = this.expandedElement;
     this.exercisesDataSource = new MatTableDataSource<Exercise>(this.ExerciseData);
+
+    console.log(this.expandedElement);
   }
 
   addExercise() {

@@ -14,21 +14,22 @@ module.exports.create = function(req, res) {
         return res.status(500).send(err);
     }
 
-    programModel.findById(req.query.id , function(err , program) {
+    programModel.findById(req.query.id, function(err, program) {
         if (err) {
             return res.status(500).send(err);
         }
 
         if (!program) {
-            return res.status(500).send('couldnt find program')
+            return res.status(500).send('could not find program');
         }
-        program.Exercises.push(exercise._id);
-        program.save(function(err ,prod) {
+
+        program.exercises.push(exercise._id);
+        program.save(function(err, prod) {
             if (err) {
                 return res.status(500).send(err);
             }
             exercise.save(function(err2 , prod2) {
-                if (err) {
+                if (err2) {
                     return res.status(500).send(err);
                 }
                 return res.send('ok')
@@ -81,11 +82,11 @@ module.exports.getAll = async function (req , res) {
 
 } 
 module.exports.update = function (req , res) {
-    if (!req.body.exercise) {
+    if (!req.query.id) {
         return res.status(500).send("no exercise defined");
     }
-    
-    exerciseModel.updateOne({_id: req.body.exercise._id}, req.body.exercise, function(err,raw) {
+
+    exerciseModel.updateOne({_id: req.query.id}, req.body, function(err,raw) {
         if (err) {
             res.status(500).send(err);
         } else {
