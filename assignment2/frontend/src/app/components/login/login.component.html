@@ -1,4 +1,33 @@
-<!-- https://www.positronx.io/create-login-ui-template-with-angular-8-material-design/ -->
 
-
-<button mat-button color="primary">Login</button>
+<div class="container">
+    <form [formGroup]="Login" (ngSubmit)="onSubmit(Login.value)" class="form">
+  
+      <mat-form-field class="form-element">
+        <input matInput placeholder="Email" formControlName="email">
+        <mat-error *ngIf="!Login.controls['email'].valid && Login.controls['email'].touched">
+          {{ getErrorEmail() }}
+        </mat-error>
+      </mat-form-field>
+  
+      <br>
+  
+      <mat-form-field class="form-element">
+        <input matInput placeholder="Password" formControlName="password">
+        <mat-error *ngIf="!Login.controls['password'].valid && Login.controls['password'].touched">
+          {{ getErrorPassword() }}
+        </mat-error>
+      </mat-form-field>
+  
+      <div class="form-element">
+        <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!Login.valid">Login</button>
+      </div>
+  
+    </form>
+  </div>
+  
+  <ng-template #forminfo>
+    <div class="container">
+      {{ post | json }}
+    </div>
+  </ng-template>
+  
