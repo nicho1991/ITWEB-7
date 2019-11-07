@@ -65,16 +65,19 @@ export class ApiService {
   }
 
   // Update workout program
-  UpdateWorkoutProgram(id: any, data: WorkoutProgram): Observable<any> {
-    const API_URL = `${environment.apiEndpoint}/update-workout-program/${id}`;
-    return this.http.put(API_URL, data, { headers: this.headers }).pipe(
+  UpdateWorkoutProgram( data: any): Observable<any> {
+    const API_URL = `${environment.apiEndpoint}/program`;
+    const obj = JSON.stringify(data);
+
+    console.log(obj)
+    return this.http.put(API_URL, obj, { headers: this.headers, responseType: 'json' }).pipe(
       catchError(this.errorMgmt)
     );
   }
 
   // Delete workout program
   DeleteWorkoutProgram(id: any): Observable<any> {
-    const API_URL = `${environment.apiEndpoint}/delete-workout-program/${id}`;
+    const API_URL = `${environment.apiEndpoint}/program/?id=${id}`;
     return this.http.delete(API_URL).pipe(
       catchError(this.errorMgmt)
     );

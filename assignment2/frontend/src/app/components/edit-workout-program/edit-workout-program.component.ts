@@ -59,10 +59,18 @@ export class EditWorkoutProgramComponent implements OnInit {
 
   /* Update */
   updateWorkoutProgramForm() {
-    console.log(this.workoutProgramForm.value);
+    
     const id = this.actRoute.snapshot.paramMap.get('id');
+
+    const obj = {'Program': {
+      "_id": id,
+      "Program": this.workoutProgramForm.value.workoutProgramName,
+      "__v": 0
+    }};
+
+    console.log(obj)
     if (window.confirm('Are you sure you want to update?')) {
-      this.workoutProgramApi.UpdateWorkoutProgram(id, this.workoutProgramForm.value).subscribe( res => {
+      this.workoutProgramApi.UpdateWorkoutProgram(obj).subscribe( res => {
         this.ngZone.run(() => this.router.navigateByUrl('/workout-programs-list'));
       });
     }
