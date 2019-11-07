@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
       if ( res ) {
         const token = JSON.parse(res);
         localStorage.setItem('currentUser', token.token);
-        this.router.navigate(['']);
+        this.router.navigate(['workout-programs-list']);
       }
     });
   }
