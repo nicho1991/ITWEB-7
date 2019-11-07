@@ -11,7 +11,7 @@ export class SignupComponent implements OnInit {
 
   LoginGroup: FormGroup;
   titleAlert = 'This field is required';
-  post: any = '';
+  creating = false;
   constructor(private formBuilder: FormBuilder) { }
 
 
@@ -23,7 +23,7 @@ export class SignupComponent implements OnInit {
     // tslint:disable-next-line: max-line-length
     const emailregex: RegExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     this.LoginGroup = this.formBuilder.group({
-      email: [null, [Validators.required, Validators.pattern(emailregex)], this.checkInUseEmail],
+      email: [null, [Validators.required, Validators.pattern(emailregex)]],
       password: [null, [Validators.required, this.checkPassword]],
       validate: ''
     });
@@ -65,7 +65,8 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit(post) {
-    this.post = post;
+    this.creating = true;
+    // go to api
   }
 
 
