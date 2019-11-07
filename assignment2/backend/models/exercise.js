@@ -3,12 +3,12 @@ const Schema = mongoose.Schema;
 
 //Define a schema
 const ExerciseSchema = new Schema({
-    ExerciseId: Schema.ObjectId,
-    UserID: String,
-    Exercise: String,
-    Description: String,
-    Set: Number,
-    Reps: String,
+    // ExerciseId: Schema.ObjectId,
+    userID: String, // Do we actually need the userID here? Wouldn't it be sufficient to only have it on the program??? 
+    exerciseName: String,
+    description: String,
+    set: Number,
+    repsTime: String,
 });
 
 const exercise = mongoose.model('exercise', ExerciseSchema);
