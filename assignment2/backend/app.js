@@ -14,7 +14,7 @@ var mongo = require('mongodb');
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/');
 var db = mongoose.connection;
-
+var cors = require('cors')
 require('./passport');
 
 require('./models/db');
@@ -24,6 +24,8 @@ var signupRouter = require('./routes/signup');
 var programRouter = require('./routes/program');
 var exerciseRouter = require('./routes/exercise');
 var app = express();
+
+app.use(cors({credentials: true, origin: true}))
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

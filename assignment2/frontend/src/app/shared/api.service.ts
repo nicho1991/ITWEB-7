@@ -12,14 +12,16 @@ import { SignupDTO } from './signupDTO';
 })
 export class ApiService {
   // endpoint = 'http://localhost:4000/api';
-  headers = new HttpHeaders().set('Content-Type', 'application/json');
+  public headers = new HttpHeaders().set('Content-Type', 'application/json');
 
   constructor(private http: HttpClient) { }
 
   // Sign up
   SignUp(data: SignupDTO) {
     const API_URL = `${environment.apiEndpoint}/signup`;
-    return this.http.post(API_URL, JSON.stringify(data));
+    const object = JSON.stringify(data);
+
+    return this.http.post(API_URL, object , {headers: this.headers, responseType: 'text'});
   }
 
 
