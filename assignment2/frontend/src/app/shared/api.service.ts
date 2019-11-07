@@ -25,6 +25,13 @@ export class ApiService {
   }
 
 
+    Login(data: SignupDTO) {
+      console.log(data);
+      const API_URL = `${environment.apiEndpoint}/login`;
+      const object = JSON.stringify(data);
+      return this.http.post(API_URL, object , {headers: this.headers, responseType: 'text'});
+    }
+
   // Add workout-program
   AddWorkoutProgram(data: WorkoutProgram): Observable<any> {
     const API_URL = `${environment.apiEndpoint}/add-workout-program`;
