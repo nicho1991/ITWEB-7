@@ -1,0 +1,33 @@
+<!-- <h1>Fitness Web App</h1> -->
+
+<!-- Toolbar -->
+<mat-toolbar color="primary" class="header">
+	<div>Fitness App</div>
+  <span nav-tool-items>
+		<button mat-flat-button color="primary">Login</button>
+		<button mat-flat-button color="accent">Sign-up</button>
+    <mat-icon (click)="sidenav.toggle()" class="hamburger">menu</mat-icon>
+  </span>
+</mat-toolbar>
+
+<mat-sidenav-container>
+
+	<!-- Sidenav -->
+	<mat-sidenav #sidenav [mode]="isBiggerScreen() ? 'over' : 'side'" [(opened)]="opened" [fixedInViewport]="true"
+	[fixedTopGap]>
+	<mat-nav-list>
+		<a mat-list-item routerLinkActive="active" routerLink="/add-workout-program">
+			<mat-icon>add</mat-icon> Add Workout Program
+		</a>
+		<a mat-list-item routerLinkActive="active" routerLink="/workout-programs-list">
+			<mat-icon>format_list_bulleted</mat-icon> View Workout Programs
+		</a>
+	</mat-nav-list>
+	</mat-sidenav>
+
+	<!-- Main content -->
+	<mat-sidenav-content>
+	<router-outlet></router-outlet>
+	</mat-sidenav-content>
+
+</mat-sidenav-container>
