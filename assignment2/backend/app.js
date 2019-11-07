@@ -56,11 +56,6 @@ app.use('/program', passport.authenticate('jwt', {session: false}),  programRout
 app.use(express.static('public'))
 
 
-
-
-
-
-
 //bodyparser middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
