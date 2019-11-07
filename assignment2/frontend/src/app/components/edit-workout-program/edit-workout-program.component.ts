@@ -1,15 +1,10 @@
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
-// import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { ApiService } from './../../shared/api.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-export interface Subject {
-  name: string;
-}
-
 @Component({
-  selector: 'app-edit-workout-program',
+  selector: 'edit-workout-program',
   templateUrl: './edit-workout-program.component.html',
   styleUrls: ['./edit-workout-program.component.css']
 })
@@ -20,10 +15,8 @@ export class EditWorkoutProgramComponent implements OnInit {
   removable = true;
   addOnBlur = true;
 
-  @ViewChild('chipList', { static: false }) chipList;
   @ViewChild('resetWorkoutProgramForm', { static: false }) myNgForm;
 
-  // readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   workoutProgramForm: FormGroup;
 
   constructor(
@@ -52,19 +45,20 @@ export class EditWorkoutProgramComponent implements OnInit {
     });
   }
 
-  /* Get errors */
-  public handleError = (controlName: string, errorName: string) => {
-    return this.workoutProgramForm.controls[controlName].hasError(errorName);
-  }
-
   /* Update */
   updateWorkoutProgramForm() {
-    console.log(this.workoutProgramForm.value);
+    console.log('DEBUG 1: ' + this.workoutProgramForm.value);
     const id = this.actRoute.snapshot.paramMap.get('id');
+    console.log('DEBUG 2: ' + id);
     if (window.confirm('Are you sure you want to update?')) {
       this.workoutProgramApi.UpdateWorkoutProgram(id, this.workoutProgramForm.value).subscribe( res => {
         this.ngZone.run(() => this.router.navigateByUrl('/workout-programs-list'));
       });
     }
+  }
+
+  /* Get errors */
+  public handleError = (controlName: string, errorName: string) => {
+    return this.workoutProgramForm.controls[controlName].hasError(errorName);
   }
 }

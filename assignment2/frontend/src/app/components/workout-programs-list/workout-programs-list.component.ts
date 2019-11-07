@@ -33,9 +33,8 @@ export class WorkoutProgramsListComponent {
   constructor(private workoutProgramApi: ApiService) {
     this.workoutProgramApi.GetWorkoutPrograms().subscribe((data: any[]) => {
 
-
       // fill in data
-      this.workoutProgramApi.getExercises().subscribe((res: any[] )=> {
+      this.workoutProgramApi.getExercises().subscribe((res: any[] ) => {
         res.forEach(exID => {
           data.forEach((program, idProgram) => {
             program.Exercises.forEach((Exercise, idEx) => {
@@ -47,8 +46,8 @@ export class WorkoutProgramsListComponent {
       });
       this.WorkoutProgramData = data;
 
-      console.log(data)
- 
+      console.log(data);
+
       this.dataSource = new MatTableDataSource<WorkoutProgram>(this.WorkoutProgramData);
     });
   }
