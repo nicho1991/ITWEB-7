@@ -49,12 +49,16 @@ module.exports.delete = function (req , res) {
         } else {
             if (product) {
                 return res.status(200).send(product);
-            } return res.status(200).send('no matching program to delete')
+            } return res.status(200).send('no matching exercise to delete')
 
         }
     })
 
+    // TODO: 
+    // Remember to remove the exercise string id from the exercises array in program.
+    // Think we might need to add the programID to the exercise as well! How else are we gonna find it?
 }
+
 module.exports.getSingle = function (req , res) {
     if (!req.query.id) {
         return res.status(500).send('No ID in params, failed.');
@@ -80,7 +84,8 @@ module.exports.getAll = async function (req , res) {
 
     })
 
-} 
+}
+
 module.exports.update = function (req , res) {
     if (!req.query.id) {
         return res.status(500).send("no exercise defined");
