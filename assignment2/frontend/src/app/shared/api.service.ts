@@ -52,7 +52,6 @@ export class ApiService {
   // Get all exercises
   getExercises() {
     const API_URL = `${environment.apiEndpoint}/exercise/all`;
-    console.log('DEBUG 1: ' + API_URL, {headers: this.headers, responseType: 'json'});
     return this.http.get(API_URL, {headers: this.headers, responseType: 'json'});
   }
 

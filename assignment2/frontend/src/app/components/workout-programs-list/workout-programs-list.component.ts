@@ -30,22 +30,70 @@ export class WorkoutProgramsListComponent {
   ExerciseData: any = [];
   exercisesDataSource: MatTableDataSource<Exercise>;
 
+  // constructor(private workoutProgramApi: ApiService) {
+  //   this.workoutProgramApi.GetWorkoutPrograms().subscribe((data: any[]) => {
+  //   this.WorkoutProgramData = data;
+  //   this.dataSource = new MatTableDataSource<WorkoutProgram>(this.WorkoutProgramData);
+  //   });
+  // }
+
   constructor(private workoutProgramApi: ApiService) {
     this.workoutProgramApi.GetWorkoutPrograms().subscribe((data: any[]) => {
-    this.WorkoutProgramData = data;
-    this.dataSource = new MatTableDataSource<WorkoutProgram>(this.WorkoutProgramData);
+      this.WorkoutProgramData = data;
+      this.dataSource = new MatTableDataSource<WorkoutProgram>(this.WorkoutProgramData);
+
+      this.workoutProgramApi.getExercises().subscribe((res: any[] ) => {
+        res.forEach(exID => {
+          data.forEach((program, idProgram) => {
+            program.exercises.forEach((lit: any, idEx: string | number) => {
+              if (lit) {
+                const EX = res.find(x => x._id === lit);
+                if ( EX ) {
+                  data[idProgram].exercises[idEx] = EX;
+                }
+              }
+            });
+          });
+        });
+
+        this.WorkoutProgramData = data;
+        this.dataSource = new MatTableDataSource<WorkoutProgram>(this.WorkoutProgramData);
+      });
     });
   }
 
   // EXERCISES (for selected workout program)
-  getExercises(selectedElement: any) {
+  async getExercises(selectedElement: any) {
+    // await this.populateExerciseData(selectedElement.exercises);
 
     this.expandedElement = this.expandedElement === selectedElement.exercises ? null : selectedElement.exercises;
-    this.ExerciseData = this.expandedElement;
-    this.exercisesDataSource = new MatTableDataSource<Exercise>(this.ExerciseData);
 
-    console.log(this.expandedElement);
+    this.ExerciseData = this.expandedElement;
+
+    this.exercisesDataSource = new MatTableDataSource<Exercise>(this.ExerciseData);
   }
+
+  // async populateExerciseData(exerciseID: string[]) {
+  //   this.ExerciseData = [];
+  //   let exercise: Exercise;
+
+  //   this.workoutProgramApi.getExercises().subscribe((res: any[]) => {
+  //     res.forEach(db => {
+  //       console.log(db);
+  //       exerciseID.forEach(id => {
+  //         if (db._id === id) {
+  //           exercise = new Exercise();
+  //           exercise.userID = db.userID;
+  //           exercise.exerciseName = db.exerciseName;
+  //           exercise.description = db.description;
+  //           exercise.set = db.set;
+  //           exercise.repsTime = db.repsTime;
+  //           this.ExerciseData.push(JSON.stringify(exercise));
+  //         }
+  //       });
+  //     });
+  //   });
+  // }
 
   addExercise() {
     this.ExerciseData.push({
