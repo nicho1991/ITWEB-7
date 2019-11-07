@@ -10,9 +10,11 @@ import { ApiService } from 'src/app/shared/api.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  hide = true;
   Login: FormGroup;
   public username: string;
   public password: string;
+
   constructor(private formBuilder: FormBuilder, private api: ApiService,
               private router: Router) { }
 
