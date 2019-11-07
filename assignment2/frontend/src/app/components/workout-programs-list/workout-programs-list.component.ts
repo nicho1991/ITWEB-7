@@ -30,13 +30,6 @@ export class WorkoutProgramsListComponent {
   ExerciseData: any = [];
   exercisesDataSource: MatTableDataSource<Exercise>;
 
-  // constructor(private workoutProgramApi: ApiService) {
-  //   this.workoutProgramApi.GetWorkoutPrograms().subscribe((data: any[]) => {
-  //   this.WorkoutProgramData = data;
-  //   this.dataSource = new MatTableDataSource<WorkoutProgram>(this.WorkoutProgramData);
-  //   });
-  // }
-
   constructor(private workoutProgramApi: ApiService) {
     this.workoutProgramApi.GetWorkoutPrograms().subscribe((data: any[]) => {
       this.workoutProgramApi.getExercises().subscribe((res: any[] ) => {
@@ -68,27 +61,6 @@ export class WorkoutProgramsListComponent {
     this.ExerciseData = this.expandedElement;
     this.exercisesDataSource = new MatTableDataSource<Exercise>(this.ExerciseData);
   }
-
-  // async populateExerciseData(exerciseID: string[]) {
-  //   this.ExerciseData = [];
-  //   let exercise: Exercise;
-  //   this.workoutProgramApi.getExercises().subscribe((res: any[]) => {
-  //     res.forEach(db => {
-  //       console.log(db);
-  //       exerciseID.forEach(id => {
-  //         if (db._id === id) {
-  //           exercise = new Exercise();
-  //           exercise.userID = db.userID;
-  //           exercise.exerciseName = db.exerciseName;
-  //           exercise.description = db.description;
-  //           exercise.set = db.set;
-  //           exercise.repsTime = db.repsTime;
-  //           this.ExerciseData.push(JSON.stringify(exercise));
-  //         }
-  //       });
-  //     });
-  //   });
-  // }
 
   addExercise(e: any) {
     this.ExerciseData.push({
