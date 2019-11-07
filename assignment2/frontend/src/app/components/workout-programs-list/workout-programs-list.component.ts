@@ -33,9 +33,8 @@ export class WorkoutProgramsListComponent {
   constructor(private workoutProgramApi: ApiService) {
     this.workoutProgramApi.GetWorkoutPrograms().subscribe((data: any[]) => {
 
-
       // fill in data
-      this.workoutProgramApi.getExercises().subscribe((res: any[] )=> {
+      this.workoutProgramApi.getExercises().subscribe((res: any[] ) => {
         res.forEach(exID => {
           data.forEach((program, idProgram) => {
             program.Exercises.forEach((Exercise, idEx) => {
@@ -47,22 +46,25 @@ export class WorkoutProgramsListComponent {
       });
       this.WorkoutProgramData = data;
 
-      console.log(data)
- 
+      console.log(data);
+
       this.dataSource = new MatTableDataSource<WorkoutProgram>(this.WorkoutProgramData);
     });
   }
 
   deleteWorkoutProgram(e: any) {
+    console.log(e);
     if (window.confirm('Are you sure')) {
+      this.workoutProgramApi.DeleteWorkoutProgram(e._id).subscribe();
       const data = this.dataSource.data;
-      let index = -1;
+      let index = 1;
       for (const [i, v] of data.entries()) {
         if (v.workoutProgramName === e.workoutProgramName) { index = i; }
       }
-      data.splice(index, 1);
+
+      data.splice(index - 1, 1);
       this.dataSource.data = data;
-      this.workoutProgramApi.DeleteWorkoutProgram(e._id).subscribe();
+
     }
   }
 
@@ -91,11 +93,13 @@ export class WorkoutProgramsListComponent {
     console.log('NOT YET IMPLEMENTED!');
   }
 
-  deleteExercise(i: number) {
+  deleteExercise(i: number, element: any) {
     this.ExerciseData.splice(i, 1);
-    this.exercisesDataSource = new MatTableDataSource<Exercise>(this.ExerciseData);
 
+    this.exercisesDataSource = new MatTableDataSource<Exercise>(this.ExerciseData);
     // TODO: If it was deleted successful, then remove it from the database also.
+
+    // this.workoutProgramApi.DeleteWorkoutProgram(element.)
   }
 
   // DEBUG

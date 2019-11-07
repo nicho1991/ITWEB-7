@@ -5,13 +5,14 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 
-import {environment} from '../../environments/environment';
+import { environment } from '../../environments/environment';
 import { SignupDTO } from './signupDTO';
+
 @Injectable({
   providedIn: 'root'
 })
+
 export class ApiService {
-  // endpoint = 'http://localhost:4000/api';
   public headers = new HttpHeaders().set('Content-Type', 'application/json');
 
   constructor(private http: HttpClient) { }
@@ -24,13 +25,13 @@ export class ApiService {
     return this.http.post(API_URL, object , {headers: this.headers, responseType: 'text'});
   }
 
-
-    Login(data: SignupDTO) {
-      console.log(data);
-      const API_URL = `${environment.apiEndpoint}/login`;
-      const object = JSON.stringify(data);
-      return this.http.post(API_URL, object , {headers: this.headers, responseType: 'text'});
-    }
+  // Login
+  Login(data: SignupDTO) {
+    console.log(data);
+    const API_URL = `${environment.apiEndpoint}/login`;
+    const object = JSON.stringify(data);
+    return this.http.post(API_URL, object , {headers: this.headers, responseType: 'text'});
+  }
 
   // Add workout-program
   AddWorkoutProgram(data: WorkoutProgram) {
@@ -40,7 +41,6 @@ export class ApiService {
     const obj = {'Program': {'Program': data.workoutProgramName}};
     console.log(obj)  ;
 
-
     return this.http.post(API_URL, obj, {headers: this.headers, responseType: 'json'});
   }
 
@@ -49,14 +49,17 @@ export class ApiService {
     return this.http.get(`${environment.apiEndpoint}/program/all`);
   }
 
+  // Get all exercises
   getExercises() {
     const API_URL = `${environment.apiEndpoint}/exercise/all`;
     return this.http.get(API_URL, {headers: this.headers, responseType: 'json'});
   }
+
   // Get workout program
   GetWorkoutProgram(id: any): Observable<any> {
-    const API_URL = `${environment.apiEndpoint}/read-workout-program/${id}`;
-    return this.http.get(API_URL, { headers: this.headers }).pipe(
+    const API_URL = `${environment.apiEndpoint}/program/single/?id=${id}`;
+    // return this.http.get(API_URL, { headers: this.headers }).pipe(
+    return this.http.get(API_URL).pipe(
       map((res: Response) => {
         return res || {};
       }),
@@ -65,16 +68,19 @@ export class ApiService {
   }
 
   // Update workout program
-  UpdateWorkoutProgram(id: any, data: WorkoutProgram): Observable<any> {
-    const API_URL = `${environment.apiEndpoint}/update-workout-program/${id}`;
-    return this.http.put(API_URL, data, { headers: this.headers }).pipe(
+  UpdateWorkoutProgram( data: any): Observable<any> {
+    const API_URL = `${environment.apiEndpoint}/program`;
+    const obj = JSON.stringify(data);
+
+    console.log(obj);
+    return this.http.put(API_URL, obj, { headers: this.headers, responseType: 'json' }).pipe(
       catchError(this.errorMgmt)
     );
   }
 
   // Delete workout program
   DeleteWorkoutProgram(id: any): Observable<any> {
-    const API_URL = `${environment.apiEndpoint}/delete-workout-program/${id}`;
+    const API_URL = `${environment.apiEndpoint}/program/?id=${id}`;
     return this.http.delete(API_URL).pipe(
       catchError(this.errorMgmt)
     );
