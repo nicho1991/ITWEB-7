@@ -38,10 +38,8 @@ export class ApiService {
     const API_URL = `${environment.apiEndpoint}/program`;
     const data1 = JSON.stringify(data);
 
-    const obj = { WorkoutProgram: { WorkoutProgram: data.workoutProgramName } };
-    console.log(obj)  ;
 
-    return this.http.post(API_URL, obj, {headers: this.headers, responseType: 'json'});
+    return this.http.post(API_URL, data1, {headers: this.headers, responseType: 'json'});
   }
 
   // Get all workout programs

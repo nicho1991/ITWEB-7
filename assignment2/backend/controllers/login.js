@@ -10,9 +10,10 @@ const passport = require('passport');
           if ( !user ) {
               return res.status(400).send('user not found');
           } if ( err ) {
+              console.log(1)
               return res.status(400).send(err);
           } else {
-            console.log(user)
+
               const token = jwt.sign(user.toJSON(), 'your_jwt_secret');
               return res.status(200).json({user, token});
           }
