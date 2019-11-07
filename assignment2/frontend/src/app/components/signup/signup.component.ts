@@ -25,22 +25,13 @@ export class SignupComponent implements OnInit {
     this.LoginGroup = this.formBuilder.group({
       email: [null, [Validators.required, Validators.pattern(emailregex)]],
       password: [null, [Validators.required, this.checkPassword]],
+      name: [null, [Validators.required]],
       validate: ''
     });
   }
 
-  setChangeValidate() {
-    this.LoginGroup.get('validate').valueChanges.subscribe(
-      (validate) => {
-        if (validate == '1') {
-          this.LoginGroup.get('name').setValidators([Validators.required, Validators.minLength(3)]);
-          this.titleAlert = 'You need to specify at least 3 characters';
-        } else {
-          this.LoginGroup.get('name').setValidators(Validators.required);
-        }
-        this.LoginGroup.get('name').updateValueAndValidity();
-      }
-    );
+  get name() {
+    return this.LoginGroup.get('name') as FormControl
   }
 
   checkPassword(control) {
@@ -48,8 +39,6 @@ export class SignupComponent implements OnInit {
     const passwordCheck = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/;
     return (!passwordCheck.test(enteredPassword) && enteredPassword) ? { requirements: true } : null;
   }
-
-
 
   getErrorEmail() {
     return this.LoginGroup.get('email').hasError('required') ? 'Field is required' :
