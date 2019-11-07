@@ -19,16 +19,21 @@ import { WorkoutProgramsListComponent } from './components/workout-programs-list
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialModule } from './material.module';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { LoginComponent } from './components/login/login.component';
+import { SignupComponent } from './components/signup/signup.component';
 
 /* Reactive form services in Angular 8 */
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     AddWorkoutProgramComponent,
     EditWorkoutProgramComponent,
-    WorkoutProgramsListComponent
+    WorkoutProgramsListComponent,
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,

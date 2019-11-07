@@ -1,0 +1,33 @@
+
+<div class="container" *ngIf="!post; else forminfo" novalidate>
+  <form [formGroup]="LoginGroup" (ngSubmit)="onSubmit(LoginGroup.value)" class="form">
+
+    <mat-form-field class="form-element">
+      <input matInput placeholder="Email" formControlName="email">
+      <mat-error *ngIf="!LoginGroup.controls['email'].valid && LoginGroup.controls['email'].touched">
+        {{ getErrorEmail() }}
+      </mat-error>
+    </mat-form-field>
+
+
+
+    <mat-form-field class="form-element">
+      <input matInput placeholder="Password" formControlName="password">
+      <mat-hint>Choose a password of at least eight characters, one uppercase letter and one number</mat-hint>
+      <mat-error *ngIf="!LoginGroup.controls['password'].valid && LoginGroup.controls['password'].touched">
+        {{ getErrorPassword() }}
+      </mat-error>
+    </mat-form-field>
+
+    <div class="form-element">
+      <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!LoginGroup.valid">Create</button>
+    </div>
+
+  </form>
+</div>
+
+<ng-template #forminfo>
+  <div class="container">
+    {{ post | json }}
+  </div>
+</ng-template>
