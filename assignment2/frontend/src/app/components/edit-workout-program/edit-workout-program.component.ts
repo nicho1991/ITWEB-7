@@ -4,6 +4,7 @@ import { ApiService } from './../../shared/api.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
+  // tslint:disable-next-line: component-selector
   selector: 'edit-workout-program',
   templateUrl: './edit-workout-program.component.html',
   styleUrls: ['./edit-workout-program.component.css']
@@ -50,10 +51,10 @@ export class EditWorkoutProgramComponent implements OnInit {
 
     const id = this.actRoute.snapshot.paramMap.get('id');
 
-    const obj = {'Program': {
-      "_id": id,
-      "Program": this.workoutProgramForm.value.workoutProgramName,
-      "__v": 0
+    const obj = {WorkoutProgram: {
+      _id: id,
+      workoutProgramName: this.workoutProgramForm.value.workoutProgramName,
+      __v: 0
     }};
 
     console.log(obj);

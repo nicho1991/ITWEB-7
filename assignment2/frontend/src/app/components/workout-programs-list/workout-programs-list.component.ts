@@ -20,7 +20,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 
 export class WorkoutProgramsListComponent {
   displayedColumns: string[] = ['workoutProgramName', 'action'];
-  exercisesDisplayedColumns: string[] = ['Exercise', 'Description', 'Set', 'Reps'];
+  exercisesDisplayedColumns: string[] = ['exerciseName', 'description', 'set', 'repsTime'];
 
   WorkoutProgramData: any = [];
   dataSource: MatTableDataSource<WorkoutProgram>;
@@ -32,47 +32,15 @@ export class WorkoutProgramsListComponent {
 
   constructor(private workoutProgramApi: ApiService) {
     this.workoutProgramApi.GetWorkoutPrograms().subscribe((data: any[]) => {
-
-      // fill in data
-      this.workoutProgramApi.getExercises().subscribe((res: any[] ) => {
-        res.forEach(exID => {
-          data.forEach((program, idProgram) => {
-            program.Exercises.forEach((Exercise, idEx) => {
-              const EX = res.find(x => x._id === Exercise);
-              data[idProgram].Exercises[idEx] = EX;
-            });
-          });
-        });
-      });
-      this.WorkoutProgramData = data;
-
-      console.log(data);
-
-      this.dataSource = new MatTableDataSource<WorkoutProgram>(this.WorkoutProgramData);
+    this.WorkoutProgramData = data;
+    this.dataSource = new MatTableDataSource<WorkoutProgram>(this.WorkoutProgramData);
     });
-  }
-
-  deleteWorkoutProgram(e: any) {
-    console.log(e);
-    if (window.confirm('Are you sure')) {
-      this.workoutProgramApi.DeleteWorkoutProgram(e._id).subscribe();
-      const data = this.dataSource.data;
-      let index = 1;
-      for (const [i, v] of data.entries()) {
-        if (v.workoutProgramName === e.workoutProgramName) { index = i; }
-      }
-
-      data.splice(index - 1, 1);
-      this.dataSource.data = data;
-
-    }
   }
 
   // EXERCISES (for selected workout program)
   getExercises(selectedElement: any) {
-    this.expandedElement = this.expandedElement === selectedElement.Exercises ? null : selectedElement.Exercises;
+    this.expandedElement = this.expandedElement === selectedElement.exercises ? null : selectedElement.exercises;
     this.ExerciseData = this.expandedElement;
-
     this.exercisesDataSource = new MatTableDataSource<Exercise>(this.ExerciseData);
   }
 
@@ -100,6 +68,23 @@ export class WorkoutProgramsListComponent {
     // TODO: If it was deleted successful, then remove it from the database also.
 
     // this.workoutProgramApi.DeleteWorkoutProgram(element.)
+  }
+
+  // WORKOUT PROGRAM
+  deleteWorkoutProgram(e: any) {
+    console.log(e);
+    if (window.confirm('Are you sure')) {
+      this.workoutProgramApi.DeleteWorkoutProgram(e._id).subscribe();
+      const data = this.dataSource.data;
+      let index = 1;
+      for (const [i, v] of data.entries()) {
+        if (v.workoutProgramName === e.workoutProgramName) { index = i; }
+      }
+
+      data.splice(index - 1, 1);
+      this.dataSource.data = data;
+
+    }
   }
 
   // DEBUG

@@ -2,11 +2,11 @@
 const programModel = require('../models/program');
 
 module.exports.create = function( req, res) {
-    if (!req.body.Program) {
+    if (!req.body.workoutProgramName) {
         return res.status(500).send("no program defined");
     }
-    var program = new programModel(req.body.Program);
-    program.UserID = req.user._id;
+    var program = new programModel(req.body.workoutProgramName);
+    program.userID = req.user._id;
     program.save(function(err,product) {
 
         if (err) {
@@ -49,29 +49,24 @@ module.exports.getSingle = function (req , res) {
 }
 module.exports.getAll = async function (req , res) {
 
-    programModel.find({UserID: req.user._id}, function(err, doc) {
+    programModel.find({ userID: req.user._id }, function(err, doc) {
         if (err) {
             console.log(error)
             res.status(500).send(error);
         }
         res.status(200).send(doc);
-
     })
-
 } 
 
-
 module.exports.update = function (req , res) {
-    if (!req.body.Program) {
+    if (!req.body.workoutProgramName) {
         return res.status(500).send("no program defined");
     }
-    programModel.updateOne({_id: req.body.Program._id}, req.body.Program, function(err,raw) {
+    programModel.updateOne({ _id: req.body.program._id}, req.body.program, function(err,raw) {
         if (err) {
             res.status(500).send(err);
         } else {
             res.status(200).send(raw);
         }
     });
-
-
 }
