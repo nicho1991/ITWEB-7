@@ -38,10 +38,8 @@ export class ApiService {
     const API_URL = `${environment.apiEndpoint}/program`;
     const data1 = JSON.stringify(data);
 
-    const obj = { WorkoutProgram: { WorkoutProgram: data.workoutProgramName } };
-    console.log(obj)  ;
 
-    return this.http.post(API_URL, obj, {headers: this.headers, responseType: 'json'});
+    return this.http.post(API_URL, data1, {headers: this.headers, responseType: 'json'});
   }
 
   // Get all workout programs
@@ -53,6 +51,15 @@ export class ApiService {
   getExercises() {
     const API_URL = `${environment.apiEndpoint}/exercise/all`;
     return this.http.get(API_URL, {headers: this.headers, responseType: 'json'});
+  }
+
+  addExercise(id, e: any) {
+    console.log(id)
+    const API_URL = `${environment.apiEndpoint}/exercise?id=${id}`;
+
+    const obj = JSON.stringify(e);
+    console.log(e);
+    return this.http.post(API_URL, obj, {headers: this.headers, responseType: 'text'});
   }
 
   // Get workout program
