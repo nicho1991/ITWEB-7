@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { Observable } from 'rxjs';
 import { ApiService } from 'src/app/shared/api.service';
 import { SignupDTO } from 'src/app/shared/signupDTO';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -16,7 +17,8 @@ export class SignupComponent implements OnInit {
   creating = false;
   constructor(
     private formBuilder: FormBuilder,
-    private api: ApiService) { }
+    private api: ApiService,
+    private router: Router) { }
 
 
   ngOnInit() {
@@ -65,6 +67,10 @@ export class SignupComponent implements OnInit {
     DTO.name = post.name;
     DTO.password = post.password;
     this.api.SignUp(DTO).subscribe(res => {
+      if ( res ) {
+        this.creating = false;
+        this.router.navigate(['./login'])
+      }
       console.log(res)
     });
   }
