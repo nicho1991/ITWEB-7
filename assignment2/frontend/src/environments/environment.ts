@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiEndpoint: 'localhost:27017/FitnessApp',
+  apiEndpoint: 'http://127.0.0.1:8080',
 };
 
 /*

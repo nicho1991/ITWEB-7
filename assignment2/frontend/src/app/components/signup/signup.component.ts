@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { ApiService } from 'src/app/shared/api.service';
+import { SignupDTO } from 'src/app/shared/signupDTO';
 
 @Component({
   selector: 'app-signup',
@@ -12,7 +14,9 @@ export class SignupComponent implements OnInit {
   LoginGroup: FormGroup;
   titleAlert = 'This field is required';
   creating = false;
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private api: ApiService) { }
 
 
   ngOnInit() {
@@ -53,9 +57,16 @@ export class SignupComponent implements OnInit {
       ? 'Password needs to be at least eight characters, one uppercase letter and one number' : '';
   }
 
-  onSubmit(post) {
+  onSubmit(post ) {
     this.creating = true;
     // go to api
+    const DTO = new SignupDTO();
+    DTO.email = post.email;
+    DTO.name = post.name;
+    DTO.password = post.password;
+    this.api.SignUp(DTO).subscribe(res => {
+      console.log(res)
+    });
   }
 
 
