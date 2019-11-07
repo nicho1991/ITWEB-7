@@ -6,14 +6,14 @@ import { EditWorkoutProgramComponent } from './components/edit-workout-program/e
 import { AddWorkoutProgramComponent } from './components/add-workout-program/add-workout-program.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
-
+import {AuthGuard} from './helpers/auth.guard';
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
-  { path: '', pathMatch: 'full', redirectTo: 'add-workout-program' },
-  { path: 'add-workout-program', component: AddWorkoutProgramComponent },
-  { path: 'edit-workout-program/:id', component: EditWorkoutProgramComponent },
-  { path: 'workout-programs-list', component: WorkoutProgramsListComponent },
+  { path: '', pathMatch: 'full', redirectTo: 'login' },
+  { path: 'add-workout-program', component: AddWorkoutProgramComponent, canActivate: [AuthGuard] },
+  { path: 'edit-workout-program/:id', component: EditWorkoutProgramComponent , canActivate: [AuthGuard]},
+  { path: 'workout-programs-list', component: WorkoutProgramsListComponent, canActivate: [AuthGuard] },
 
 ];
 

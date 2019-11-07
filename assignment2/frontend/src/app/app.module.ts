@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 /* Angular 8 http service */
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 /* Angular 8 CRUD services */
 import { ApiService } from './shared/api.service';
@@ -24,6 +24,7 @@ import { SignupComponent } from './components/signup/signup.component';
 
 /* Reactive form services in Angular 8 */
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { JwtInterceptor } from './helpers/jwt.interceptor';
 
 
 @NgModule({
@@ -44,7 +45,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     FormsModule
   ],
-  providers: [ApiService],
+  providers: [
+    ApiService,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
