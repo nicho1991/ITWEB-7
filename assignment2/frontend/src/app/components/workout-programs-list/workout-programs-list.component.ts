@@ -20,7 +20,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 
 export class WorkoutProgramsListComponent {
   displayedColumns: string[] = ['workoutProgramName', 'action'];
-  exercisesDisplayedColumns: string[] = ['exerciseName', 'description', 'set', 'repsTime'];
+  exercisesDisplayedColumns: string[] = ['Exercise', 'Description', 'Set', 'Reps'];
 
   WorkoutProgramData: any = [];
   dataSource: MatTableDataSource<WorkoutProgram>;
@@ -31,8 +31,24 @@ export class WorkoutProgramsListComponent {
   exercisesDataSource: MatTableDataSource<Exercise>;
 
   constructor(private workoutProgramApi: ApiService) {
-    this.workoutProgramApi.GetWorkoutPrograms().subscribe(data => {
+    this.workoutProgramApi.GetWorkoutPrograms().subscribe((data: any[]) => {
+
+
+      // fill in data
+      this.workoutProgramApi.getExercises().subscribe((res: any[] )=> {
+        res.forEach(exID => {
+          data.forEach((program, idProgram) => {
+            program.Exercises.forEach((Exercise, idEx) => {
+              const EX = res.find(x => x._id === Exercise);
+              data[idProgram].Exercises[idEx] = EX;
+            });
+          });
+        });
+      });
       this.WorkoutProgramData = data;
+
+      console.log(data)
+ 
       this.dataSource = new MatTableDataSource<WorkoutProgram>(this.WorkoutProgramData);
     });
   }
@@ -52,8 +68,9 @@ export class WorkoutProgramsListComponent {
 
   // EXERCISES (for selected workout program)
   getExercises(selectedElement: any) {
-    this.expandedElement = this.expandedElement === selectedElement.exercises ? null : selectedElement.exercises;
+    this.expandedElement = this.expandedElement === selectedElement.Exercises ? null : selectedElement.Exercises;
     this.ExerciseData = this.expandedElement;
+
     this.exercisesDataSource = new MatTableDataSource<Exercise>(this.ExerciseData);
   }
 

@@ -33,19 +33,26 @@ export class ApiService {
     }
 
   // Add workout-program
-  AddWorkoutProgram(data: WorkoutProgram): Observable<any> {
-    const API_URL = `${environment.apiEndpoint}/add-workout-program`;
-    return this.http.post(API_URL, data)
-      .pipe(
-        catchError(this.errorMgmt)
-      );
+  AddWorkoutProgram(data: WorkoutProgram) {
+    const API_URL = `${environment.apiEndpoint}/program`;
+    const data1 = JSON.stringify(data);
+
+    const obj = {'Program': {'Program': data.workoutProgramName}};
+    console.log(obj)  ;
+
+
+    return this.http.post(API_URL, obj, {headers: this.headers, responseType: 'json'});
   }
 
   // Get all workout programs
   GetWorkoutPrograms() {
-    return this.http.get(`${environment.apiEndpoint}`);
+    return this.http.get(`${environment.apiEndpoint}/program/all`);
   }
 
+  getExercises() {
+    const API_URL = `${environment.apiEndpoint}/exercise/all`;
+    return this.http.get(API_URL, {headers: this.headers, responseType: 'json'});
+  }
   // Get workout program
   GetWorkoutProgram(id: any): Observable<any> {
     const API_URL = `${environment.apiEndpoint}/read-workout-program/${id}`;
