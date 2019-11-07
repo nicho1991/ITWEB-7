@@ -54,6 +54,15 @@ export class ApiService {
     return this.http.get(API_URL, {headers: this.headers, responseType: 'json'});
   }
 
+  addExercise(id, e: any) {
+    console.log(id)
+    const API_URL = `${environment.apiEndpoint}/exercise?id=${id}`;
+
+    const obj = JSON.stringify(e);
+    console.log(e);
+    return this.http.post(API_URL, obj, {headers: this.headers, responseType: 'text'});
+  }
+
   // Get workout program
   GetWorkoutProgram(id: any): Observable<any> {
     const API_URL = `${environment.apiEndpoint}/program/single/?id=${id}`;
