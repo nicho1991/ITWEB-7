@@ -1,40 +1,40 @@
 const exerciseModel = require('../models/exercise');
 const programModel = require('../models/program')
 
+module.exports.create = function(req, res) {
+    if (!req.body.exerciseName | !req.query.id) {
+        return res.status(500).send('input error');
+    }
 
-module.exports.create = function( req, res) {
-        if (!req.body.exercise | !req.query.id) {
-            return res.status(500).send('input error');
-        }
-        var exercise = new exerciseModel(req.body.exercise);
-        exercise.UserID = req.user._id
-        var err = exercise.validateSync();
+    var exercise = new exerciseModel(req.body);
+    exercise.userID = req.user._id
+
+    var err = exercise.validateSync();
+    if (err) {
+        return res.status(500).send(err);
+    }
+
+    programModel.findById(req.query.id , function(err , program) {
         if (err) {
             return res.status(500).send(err);
         }
-        programModel.findById(req.query.id , function(err , program) {
+
+        if (!program) {
+            return res.status(500).send('couldnt find program')
+        }
+        program.Exercises.push(exercise._id);
+        program.save(function(err ,prod) {
             if (err) {
                 return res.status(500).send(err);
             }
-            if (!program) {
-                return res.status(500).send('couldnt find program')
-            }
-            program.Exercises.push(exercise._id);
-            program.save(function(err ,prod) {
+            exercise.save(function(err2 , prod2) {
                 if (err) {
                     return res.status(500).send(err);
                 }
-                exercise.save(function(err2 , prod2) {
-                    if (err) {
-                        return res.status(500).send(err);
-                    }
-                    return res.send('ok')
-                });
+                return res.send('ok')
             });
-  
-
-   
-        })
+        });
+    })
 }
 
 module.exports.delete = function (req , res) {
@@ -70,7 +70,7 @@ module.exports.getSingle = function (req , res) {
 
 module.exports.getAll = async function (req , res) {
 
-    exerciseModel.find({UserID: req.user._id}, function(err, doc) {
+    exerciseModel.find({userID: req.user._id}, function(err, doc) {
         if (err) {
             console.log(error)
             res.status(500).send(error);
@@ -81,11 +81,11 @@ module.exports.getAll = async function (req , res) {
 
 } 
 module.exports.update = function (req , res) {
-    if (!req.body.Exercise) {
+    if (!req.body.exercise) {
         return res.status(500).send("no exercise defined");
     }
     
-    exerciseModel.updateOne({_id: req.body.Exercise._id}, req.body.Exercise, function(err,raw) {
+    exerciseModel.updateOne({_id: req.body.exercise._id}, req.body.exercise, function(err,raw) {
         if (err) {
             res.status(500).send(err);
         } else {
