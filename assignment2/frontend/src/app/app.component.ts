@@ -1,5 +1,6 @@
 import { Component, ViewChild, HostListener, OnInit } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +8,8 @@ import { MatSidenav } from '@angular/material/sidenav';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+
+  constructor(private router: Router) {}
   opened = true;
   @ViewChild('sidenav', {static: true}) sidenav: MatSidenav;
 
@@ -30,6 +33,10 @@ export class AppComponent implements OnInit {
       this.sidenav.fixedTopGap = 55;
       this.opened = true;
     }
+  }
+  logout() {
+    localStorage.clear();
+    this.router.navigate(['/login']);
   }
 
   isBiggerScreen() {

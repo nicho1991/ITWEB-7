@@ -6,6 +6,7 @@
   <span nav-tool-items>
 		<button mat-flat-button color="primary" routerLink="/login">Login</button>
 		<button mat-flat-button color="accent" routerLink="/signup">Sign-up</button>
+		<button mat-flat-button color="warn" (click)="logout()">Log out</button>
     <mat-icon (click)="sidenav.toggle()" class="hamburger">menu</mat-icon>
   </span>
 </mat-toolbar>
