@@ -22,9 +22,8 @@ export class WorkoutProgramsListComponent {
   displayedColumns: string[] = ['workoutProgramName', 'action'];
   exercisesDisplayedColumns: string[] = ['exerciseName', 'description', 'set', 'repsTime'];
 
-  WorkoutProgramData: any[] = [];
+  WorkoutProgramData: any = [];
   dataSource: MatTableDataSource<WorkoutProgram>;
-  edit = false;
 
   expandedElement: WorkoutProgram;
 
@@ -64,6 +63,12 @@ export class WorkoutProgramsListComponent {
   }
 
   addExercise(e: any) {
+    this.ExerciseData.push({
+      exerciseName: '<placeholder>',
+      description: '<placeholder>',
+      set: 0,
+      repsTime: '<placeholder>'
+    });
     this.exercisesDataSource = new MatTableDataSource<Exercise>(this.ExerciseData);
 
     this.workoutProgramApi
@@ -74,27 +79,17 @@ export class WorkoutProgramsListComponent {
   }
 
   editExercise(element) {
-    this.edit = !this.edit;
-    this.ExerciseData.push({
-      exerciseName: '<placeholder>',
-      description: '<placeholder>',
-      set: 0,
-      repsTime: '<placeholder>'
-    });
+    console.log(element);
+    console.log('NOT YET IMPLEMENTED!');
   }
 
-  deleteExercise(i: number) {
-    const program = this.WorkoutProgramData.find(x => x.exercises.find(x => x._id));
-   
-    const ex = this.ExerciseData.splice(i, 1);
+  deleteExercise(i: number, element: any) {
+    this.ExerciseData.splice(i, 1);
 
     this.exercisesDataSource = new MatTableDataSource<Exercise>(this.ExerciseData);
     // TODO: If it was deleted successful, then remove it from the database also.
 
-
-    this.workoutProgramApi.DeleteExercise(program._id , ex).subscribe(res => {
-      console.log(res);
-    }) 
+    // this.workoutProgramApi.DeleteWorkoutProgram(element.)
   }
 
   // WORKOUT PROGRAM
