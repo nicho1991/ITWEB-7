@@ -83,13 +83,19 @@ export class WorkoutProgramsListComponent {
     console.log('NOT YET IMPLEMENTED!');
   }
 
-  deleteExercise(i: number, element: any) {
-    this.ExerciseData.splice(i, 1);
+  deleteExercise(i: number) {
+    const program = this.WorkoutProgramData.find(x => x.exercises.find(x => x._id));
+   
+    const ex = this.ExerciseData.splice(i, 1);
 
     this.exercisesDataSource = new MatTableDataSource<Exercise>(this.ExerciseData);
     // TODO: If it was deleted successful, then remove it from the database also.
 
     // this.workoutProgramApi.DeleteWorkoutProgram(element.)
+
+    this.workoutProgramApi.DeleteExercise(program._id , ex).subscribe(res => {
+      console.log(res);
+    }) 
   }
 
   // WORKOUT PROGRAM
