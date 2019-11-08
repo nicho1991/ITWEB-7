@@ -7,6 +7,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 
 import { environment } from '../../environments/environment';
 import { SignupDTO } from './signupDTO';
+import { Exercise } from './exercise';
 
 @Injectable({
   providedIn: 'root'
@@ -89,6 +90,14 @@ export class ApiService {
   DeleteWorkoutProgram(id: any): Observable<any> {
     const API_URL = `${environment.apiEndpoint}/program/?id=${id}`;
     return this.http.delete(API_URL).pipe(
+      catchError(this.errorMgmt)
+    );
+  }
+
+  DeleteExercise(ProgramID: string, ex: Exercise) {
+    const API_URL = `${environment.apiEndpoint}/exercise/delete/?id=${ProgramID}`;
+    const obj = JSON.stringify(ex);
+    return this.http.post(API_URL, ex, {headers: this.headers , responseType: 'text'}).pipe(
       catchError(this.errorMgmt)
     );
   }

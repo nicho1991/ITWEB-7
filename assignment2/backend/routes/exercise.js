@@ -3,7 +3,7 @@ var router = express.Router();
 var exercise = require('../controllers/exercise');
 
 router.post('/' , exercise.create);
-router.delete('/' , exercise.delete);
+router.post('/delete' , exercise.delete);
 router.get('/single' ,exercise.getSingle); 
 router.get('/all', exercise.getAll);
 router.put('/' , exercise.update);
