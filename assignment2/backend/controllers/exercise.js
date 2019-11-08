@@ -42,7 +42,8 @@ module.exports.delete = function (req , res) {
 
     const id = req.query.id;
 
-    const ex = req.body[0];
+    const ex = req.body;
+    console.log(ex);
 
     // send program as id and exercise as body
     if (!id) {
@@ -66,16 +67,13 @@ module.exports.delete = function (req , res) {
                 if ( exDoc ) {
                  
                
-                    const exID = doc.exercises.findIndex(x => x === exDoc._id.toString());
+                    // const exID = doc.exercises.findIndex(x => x === exDoc._id.toString());
             
-                    doc.exercises.splice(exID, 1);
-            
-
+                    // doc.exercises.splice(exID, 1);
+                    doc.exercises = doc.exercises.filter(x => x !== ex._id.toString())
     
-        
                     programModel.updateOne({_id: id}, doc, function(prerr , prdoc) {
                         if (prdoc) {
-                            console.log(prdoc)
                             return res.status(200).send('ok');
                         }
                         if (prerr) {
@@ -131,11 +129,12 @@ module.exports.getAll = async function (req , res) {
 }
 
 module.exports.update = function (req , res) {
-    if (!req.query.id) {
+    console.log(req.body)
+    if (!req.body) {
         return res.status(500).send("no exercise defined");
     }
 
-    exerciseModel.updateOne({_id: req.query.id}, req.body, function(err,raw) {
+    exerciseModel.updateOne({_id: req.body._id}, req.body, function(err,raw) {
         if (err) {
             res.status(500).send(err);
         } else {
