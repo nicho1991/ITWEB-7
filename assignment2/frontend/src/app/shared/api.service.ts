@@ -102,6 +102,14 @@ export class ApiService {
     );
   }
 
+  editExercise(element) {
+    const API_URL = `${environment.apiEndpoint}/exercise`;
+    const obj = JSON.stringify(element);
+    return this.http.put(API_URL, obj, {headers: this.headers , responseType: 'text'}).pipe(
+      catchError(this.errorMgmt)
+    );
+  }
+
   // Error handling
   errorMgmt(error: HttpErrorResponse) {
     let errorMessage = '';
