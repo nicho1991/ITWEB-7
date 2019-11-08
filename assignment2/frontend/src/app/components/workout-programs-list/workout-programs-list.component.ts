@@ -24,6 +24,7 @@ export class WorkoutProgramsListComponent {
 
   WorkoutProgramData: any = [];
   dataSource: MatTableDataSource<WorkoutProgram>;
+  edit = false;
 
   expandedElement: WorkoutProgram;
 
@@ -63,12 +64,6 @@ export class WorkoutProgramsListComponent {
   }
 
   addExercise(e: any) {
-    this.ExerciseData.push({
-      exerciseName: '<placeholder>',
-      description: '<placeholder>',
-      set: 0,
-      repsTime: '<placeholder>'
-    });
     this.exercisesDataSource = new MatTableDataSource<Exercise>(this.ExerciseData);
 
     this.workoutProgramApi
@@ -79,8 +74,13 @@ export class WorkoutProgramsListComponent {
   }
 
   editExercise(element) {
-    console.log(element);
-    console.log('NOT YET IMPLEMENTED!');
+    this.edit = !this.edit;
+    this.ExerciseData.push({
+      exerciseName: '<placeholder>',
+      description: '<placeholder>',
+      set: 0,
+      repsTime: '<placeholder>'
+    });
   }
 
   deleteExercise(i: number, element: any) {
