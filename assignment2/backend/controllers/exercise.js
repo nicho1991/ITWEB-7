@@ -39,20 +39,64 @@ module.exports.create = function(req, res) {
 }
 
 module.exports.delete = function (req , res) {
-    if (!req.query.id) {
+
+    const id = req.query.id;
+
+    const ex = req.body[0];
+
+    // send program as id and exercise as body
+    if (!id) {
         return res.status(500).send('No ID in params, failed.');
     }
+    programModel.findById(id, function(err ,doc) {
+     
+        if ( err) {
+            res.status(500).send(err);
+        }
+      
+  
+        if (doc) {
+       
+            exerciseModel.findOneAndDelete(ex._id, function(exErr , exDoc ) {
+             
+                if (err) {
+                    res.status(500).send(exErr)
+                }
+          
+                if ( exDoc ) {
+                 
+               
+                    const exID = doc.exercises.findIndex(x => x === exDoc._id.toString());
+            
+                    doc.exercises.splice(exID, 1);
+            
 
-    exerciseModel.findByIdAndDelete({_id: req.query.id}, function(err, product) {
-        if (err) {
-            return res.status(500).send(err);
-        } else {
-            if (product) {
-                return res.status(200).send(product);
-            } return res.status(200).send('no matching exercise to delete')
+    
+        
+                    programModel.updateOne({_id: id}, doc, function(prerr , prdoc) {
+                        if (prdoc) {
+                            console.log(prdoc)
+                            return res.status(200).send('ok');
+                        }
+                        if (prerr) {
+                            return res.status(500).send(prerr);
+                        }
+                    });
+        
+              
+                }
+
+            });
+            // also delete fromt the program
+            
 
         }
-    })
+  
+    });
+
+
+
+
 
     // TODO: 
     // Remember to remove the exercise string id from the exercises array in program.
