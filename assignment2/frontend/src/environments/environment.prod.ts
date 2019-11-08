@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiEndpoint: 'endpointForLiveServerMissing',
+  apiEndpoint: 'https://itweb-grp7-assignment2.herokuapp.com/',
 };
