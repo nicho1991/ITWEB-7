@@ -4,6 +4,7 @@ import { ApiService } from './../../shared/api.service';
 import { Component } from '@angular/core';
 import { MatTableDataSource } from '@angular/material';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-workout-programs-list',
@@ -45,26 +46,40 @@ export class WorkoutProgramsListComponent {
   }
 
   addExercise(e: any) {
-    this.ExerciseData.push({
+
+
+    const ex = {
       exerciseName: '<placeholder>',
       description: '<placeholder>',
       set: 0,
       repsTime: '<placeholder>'
-    });
-    this.exercisesDataSource = new MatTableDataSource<Exercise>(this.ExerciseData);
+    }   
+    this.ExerciseData.push(ex);
+
+
+    console.log(e)
 
     this.workoutProgramApi
-      .addExercise(e._id , e.exercises[e.exercises.length - 1]).subscribe(res => {
-        console.log(res);
+      .addExercise(e._id ,ex).subscribe(res => {
+
+     
+        this.update();
+
+        
+        this.exercisesDataSource = new MatTableDataSource<Exercise>(this.ExerciseData);
       });
 
-    this.update();
     // TODO: If it was added successful, then add it to the database also.
   }
 
   editExercise(element) {
-    this.workoutProgramApi.editExercise(element).subscribe();
-    this.update();
+    this.workoutProgramApi.editExercise(element).subscribe(res =>  {
+      console.log(res)
+      if ( res) {
+        this.update();
+      }
+    });
+
   }
 
   deleteExercise(element: any) {

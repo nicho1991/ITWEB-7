@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiEndpoint: 'http://localhost:3000',
+  //apiEndpoint: 'http://localhost:3000',
+  apiEndpoint: 'https://itweb-grp7-assignment2.herokuapp.com',
 };
 
 /*
