@@ -11,6 +11,41 @@ constructor(props){
   password:''
   }
  }
+
+ 
+
+ handleClick(e) {
+  e.preventDefault();
+   fetch("http://localhost:4000/login", {
+     method: 'POST',
+     headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      email: this.state.username,
+      password: this.state.password
+    })
+   }).then(res => {
+     if (res.ok) {
+ 
+       res.json().then(resu => {
+    
+         localStorage.setItem('currentUser', resu.token);
+       })
+     }
+   })
+
+/*   this.api.Login(DTO).subscribe(res => {
+    if ( res ) {
+      const token = JSON.parse(res);
+      localStorage.setItem('currentUser', token.token);
+      this.router.navigate(['workout-programs-list']);
+    }
+  });
+ */
+
+ }
 render() {
     return (
       <div>
