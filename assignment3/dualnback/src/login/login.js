@@ -3,6 +3,12 @@ import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import React, {Component} from 'react';
+
+import {
+  BrowserRouter as Router,
+  Link
+} from "react-router-dom";
+
 class Login extends Component {
 constructor(props){
   super(props);
@@ -28,10 +34,10 @@ constructor(props){
     })
    }).then(res => {
      if (res.ok) {
- 
        res.json().then(resu => {
-    
          localStorage.setItem('currentUser', resu.token);
+
+         this.props.history.push("/game")
        })
      }
    })

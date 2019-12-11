@@ -3,7 +3,10 @@ import * as React from "react";
 import { Button, Col, Container, Row } from "reactstrap";
 import './Dualnback.css';
 import Game from "./Game";
-
+import {
+  BrowserRouter as Router,
+  Link
+} from "react-router-dom";
 
 export interface IState {
   gameRunning: boolean;
@@ -31,7 +34,10 @@ class Dualnback extends React.Component<{}, IState> {
   public render() {
     return (
       <div className="Dualnback">
+        
+
         <Container>
+          <Link to="/login">Login</Link>
           <Row>
             <Col xs="3">
               <input type="range" min="3" max="5" className="slider" value={this.state.gridSize} onInput={this.setGridSize} onChange={this.setGridSize} />
