@@ -25,6 +25,8 @@ var programRouter = require('./routes/program');
 var exerciseRouter = require('./routes/exercise');
 var app = express();
 
+
+
 app.use(cors({credentials: true, origin: true}))
 
 // view engine setup
@@ -90,9 +92,46 @@ app.use(function (req, res, next) {
   res.locals.error = req.flash('error');
 })
 
+
+
 app.set('port', (process.env.PORT || 4000));
 app.listen(app.get('port'),function(){
   console.log('Server started on port: ' + app.get('port'));
 })
+
+// WEBSOCKET
+
+const ws = require('ws').Server
+var http = require('http');
+
+var server = http.createServer(function (request, response) {
+  console.log((new Date()) + ' Received request for ' + request.url);
+  response.writeHead(200, {'Content-Type': 'text/plain'});
+  response.write("Welcome to Node.js on OpenShift!\n\n");
+  response.end("Thanks for visiting us! \n");
+});
+
+server.listen(8080, function () {
+  console.log((new Date()) + ' Server is listening on port 8080');
+});
+
+var wss = new ws({
+  server: server,
+
+});
+
+wss.on('connection',webscocket =>  {
+
+  console.log("New connection");
+
+  wss.clients.forEach(client => {
+    client.send('hello')
+  })
+
+  webscocket.send('Hello from the two-way WebSocket server');
+
+});
+
+
 
 module.exports = app;

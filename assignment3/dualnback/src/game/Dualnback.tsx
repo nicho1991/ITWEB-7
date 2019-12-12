@@ -38,6 +38,10 @@ class Dualnback extends React.Component<{}, IState> {
 
         <Container>
           <Link to="/login">Login</Link>
+          <div>
+          <Link to="/highscores">Highscores</Link>
+          </div>
+
           <Row>
             <Col xs="3">
               <input type="range" min="3" max="5" className="slider" value={this.state.gridSize} onInput={this.setGridSize} onChange={this.setGridSize} />
