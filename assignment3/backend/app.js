@@ -128,6 +128,14 @@ wss.on('connection',webscocket =>  {
     client.send('hello')
   })
 
+  webscocket.onmessage = (message) => {
+    var object = JSON.parse(message.data)
+
+
+    console.log(object.token)
+    console.log(object.score)
+  }
+
   webscocket.send('Hello from the two-way WebSocket server');
 
 });

@@ -13,17 +13,20 @@ export interface IState {
   gridSize: number;
   score: number;
 }
-
+var connection = new WebSocket('ws://localhost:8080');
 class Dualnback extends React.Component<{}, IState> {
 
   constructor(props: any) {
     super(props);
+
 
     this.state = {
       gameRunning: false,
       gridSize: 3,
       score: 0,
     };
+
+    this.sendScore = this.sendScore.bind(this)
 
     this.setGridSize = this.setGridSize.bind(this);
     this.onPlay = this.onPlay.bind(this);
@@ -37,6 +40,7 @@ class Dualnback extends React.Component<{}, IState> {
         
 
         <Container>
+        <Button color="primary" className={this.state.gameRunning ? 'hidden' : ''} onClick={this.sendScore}>Send Score</Button>
           <Link to="/login">Login</Link>
           <div>
           <Link to="/highscores">Highscores</Link>
@@ -64,6 +68,11 @@ class Dualnback extends React.Component<{}, IState> {
         </Container>
       </div>
     );
+  }
+  private sendScore(e: any) {  
+    var user = localStorage.getItem('currentUser');
+
+    connection.send(JSON.stringify({score: this.state.score, token: user}))
   }
 
   private setGridSize(e: any) {
