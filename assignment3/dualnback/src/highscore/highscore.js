@@ -14,7 +14,7 @@ constructor(props){
   super(props);
 
   this.state = {
-    serverMessage: '',
+    highscores: [],
 
   };
 
@@ -26,8 +26,20 @@ constructor(props){
   }
 
   connection.onmessage = e => {
-    console.log(e.data)
-    this.setState({serverMessage: e.data})
+
+    // this.setState({serverMessage: e.data})
+
+    var arr = []
+    var data = JSON.parse(e.data);
+    data.forEach(element => {
+
+      var name = element.name;
+      var score = element.score;
+      var highscore = {score, name};
+      arr.push(highscore);
+    });
+
+    this.setState({highscores: arr})
   }
  }
  render() {
@@ -39,7 +51,12 @@ constructor(props){
           <AppBar
              title="Highscores"
            />
-          <p>{this.state.serverMessage}</p>
+          <ul>
+            {this.state.highscores.map((value , index) => {
+              return <li key={index}>name: {value.name} score: {value.score}</li>
+            })}
+            
+          </ul>
           <Link to="/game">game</Link>
          </div>
          </MuiThemeProvider>

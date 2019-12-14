@@ -126,7 +126,6 @@ wss.on('connection',webscocket =>  {
   console.log("New connection");
 
   wss.clients.forEach(client => {
-    client.send('hello')
     scoreModel.find(function (err, doc){
       console.log(doc)
       client.send(JSON.stringify(doc))
@@ -142,7 +141,7 @@ wss.on('connection',webscocket =>  {
     console.log(object.score)
   }
 
-  webscocket.send('Hello from the two-way WebSocket server');
+  // webscocket.send('Hello from the two-way WebSocket server');
 
 });
 
