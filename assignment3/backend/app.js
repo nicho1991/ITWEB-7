@@ -120,13 +120,18 @@ var wss = new ws({
   server: server,
 
 });
-
+const scoreModel = require('./models/highscore');
 wss.on('connection',webscocket =>  {
 
   console.log("New connection");
 
   wss.clients.forEach(client => {
     client.send('hello')
+    scoreModel.find(function (err, doc){
+      console.log(doc)
+      client.send(JSON.stringify(doc))
+    })
+
   })
 
   webscocket.onmessage = (message) => {
