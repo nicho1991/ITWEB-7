@@ -70,9 +70,30 @@ class Dualnback extends React.Component<{}, IState> {
     );
   }
   private sendScore(e: any) {  
-    var user = localStorage.getItem('currentUser');
+    const currentUser = (localStorage.getItem('currentUser'));
 
-    connection.send(JSON.stringify({score: this.state.score, token: user}))
+
+    if ( currentUser ) {
+      const req = fetch("http://localhost:4000/score/create", {
+        method: 'POST',
+        headers: {
+         'Accept': '*/*',
+         'Content-Type': 'application/json',
+         'Authorization': 'Bearer ' + currentUser,
+         'Host': 'localhost:4000',
+         'Connection': 'Keep-alive'
+       },
+       body: JSON.stringify({
+         score: this.state.score,
+     
+       })
+      }).then(res =>  console.log(res))
+    } 
+    // connection.send(JSON.stringify({score: this.state.score, token: user}))
+
+    // send over http instead
+
+  
   }
 
   private setGridSize(e: any) {

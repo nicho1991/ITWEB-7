@@ -40,6 +40,7 @@ var passport = require('passport')
   });
   
   passport.deserializeUser(function(id, done) {
+    console.log(id)
     User.getUserById(id, function(err, user) {
       done(err, user);
     });
