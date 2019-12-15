@@ -49,7 +49,7 @@ class Game extends React.Component<IProps, IState> {
         this.tryPosition = this.tryPosition.bind(this);
         this.trySound = this.trySound.bind(this);
         this.onFlash = this.onFlash.bind(this);
-      /*   this.speak = this.speak.bind(this); */
+        this.speak = this.speak.bind(this);
     }
 
     public componentWillUnmount() {
@@ -90,10 +90,10 @@ class Game extends React.Component<IProps, IState> {
 
     private onFlash(newFlash: Flash) {
         this.setState({ currentFlash: newFlash });
-        /* this.speak(newFlash.sound.toString()); */
+        this.speak(newFlash.sound.toString());
     }
 
-/*     private speak(text: string) {
+    private speak(text: string) {
         if ('speechSynthesis' in window) {
             const utterance = new SpeechSynthesisUtterance();
             utterance.text = text;
@@ -102,7 +102,7 @@ class Game extends React.Component<IProps, IState> {
             })[0];
             window.speechSynthesis.speak(utterance);
         }
-    } */
+    }
 }
 
 export default Game;
