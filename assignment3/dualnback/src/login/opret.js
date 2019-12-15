@@ -1,47 +1,47 @@
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
+import Button from '@material-ui/core/Button';
 import TextField from 'material-ui/TextField';
 import React, {Component} from 'react';
-import Button from '@material-ui/core/Button';
 
 import {
   BrowserRouter as Router,
   Link
 } from "react-router-dom";
 
-class Login extends Component {
+class Opret extends Component {
 constructor(props){
   super(props);
   this.state={
-  username:'',
+  name:'',
+  email:'',
   password:''
   }
  }
+
  nextPath(path) {
-  this.props.history.push(path);
-}
+    this.props.history.push(path);
+  }
+
  
 
  handleClick(e) {
   e.preventDefault();
-   fetch("http://localhost:4000/login", {
+   fetch("http://localhost:4000/signup", {
      method: 'POST',
      headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      email: this.state.username,
-      password: this.state.password
+    name: this.state.username,
+    email: this.state.username,
+    password: this.state.password
     })
    }).then(res => {
      if (res.ok) {
-       res.json().then(resu => {
-         localStorage.setItem('currentUser', resu.token);
-
-         this.props.history.push("/game")
-       })
+        this.props.history.push("/Login")
      }
    })
 
@@ -61,15 +61,18 @@ render() {
         <MuiThemeProvider>
           <div>
           <AppBar
-             title="Login">
-                <Button color="inherit" onClick={() => this.nextPath('/Opret') }>Opret</Button>
-             </AppBar>
-            
-           
+             title="Opret Bruger"
+           ><Button color="inherit" onClick={() => this.nextPath('/Login') }>Login</Button>
+            </AppBar>
            <TextField
              hintText="Enter your Username"
              floatingLabelText="Username"
              onChange = {(event,newValue) => this.setState({username:newValue})}
+             />
+            <TextField
+             hintText="Enter your Email"
+             floatingLabelText="Email"
+             onChange = {(event,newValue) => this.setState({email:newValue})}
              />
            <br/>
              <TextField
@@ -89,4 +92,4 @@ render() {
 const style = {
  margin: 15,
 };
-export default Login;
+export default Opret;
