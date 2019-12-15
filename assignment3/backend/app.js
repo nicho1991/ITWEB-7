@@ -21,8 +21,6 @@ require('./models/db');
 
 var loginRouter = require('./routes/login');
 var signupRouter = require('./routes/signup');
-var programRouter = require('./routes/program');
-var exerciseRouter = require('./routes/exercise');
 var highscoresRouter = require('./routes/highscore');
 var app = express();
 
@@ -49,11 +47,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-
-app.use('/exercise', passport.authenticate('jwt', {session: false}), exerciseRouter);
 app.use('/login' , loginRouter);
 app.use('/signup' , signupRouter);
-app.use('/program', passport.authenticate('jwt', {session: false}),  programRouter);
 app.use('/score' , passport.authenticate('jwt' , {session: true}), highscoresRouter);
 
 
