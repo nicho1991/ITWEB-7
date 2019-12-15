@@ -12,7 +12,7 @@ function App() {
 
     <BrowserRouter>
       <Switch>
-         <Route path="/opret" component={Opret} />
+        <Route path="/opret" component={Opret} />
         <Route path="/game" component={Dualnback} />
         <Route path="/highscores" component={Highscores} />
         <Route path="/" component={Login} />
